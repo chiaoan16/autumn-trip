@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Autumn Journey ・ 10/14-10/16 慢活巡禮</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Serif TC & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: {
+              50: '#FAF8F5',
+              100: '#F5F0EA',
+              200: '#ECE3D7',
+              300: '#DDD0C0',
+            },
+            butter: {
+              100: '#FEF9E7',
+              200: '#FDEFC2',
+              400: '#EBCB6B',
+              500: '#DFB945',
+              600: '#B89332',
+            },
+            warmGray: {
+              100: '#F0EEEB',
+              500: '#8C857B',
+              700: '#524D46',
+              800: '#3A3631',
+              850: '#2E2B27',
+              900: '#1F1C18',
+            },
+            sage: {
+              100: '#EFF3EE',
+              200: '#D5DFD3',
+              500: '#7E947A',
+              700: '#4D614A',
+            },
+            terracotta: {
+              100: '#F9EDE8',
+              500: '#C86D51',
+              600: '#AD543A',
+            },
+            caramel: {
+              500: '#A36838',
+              600: '#864D23',
+            }
+          },
+          fontFamily: {
+            serif: ['"Noto Serif TC"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 10px 30px -5px rgba(90, 75, 60, 0.06), 0 4px 12px -2px rgba(90, 75, 60, 0.03)',
+            elevated: '0 20px 40px -10px rgba(90, 75, 60, 0.12), 0 6px 16px -3px rgba(90, 75, 60, 0.05)',
+            tag: '0 2px 6px rgba(0,0,0,0.04)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F6F3EE;
+      color: #3A3631;
+      font-family: 'Plus Jakarta Sans', "Noto Serif TC", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    .fade-slide-enter-active,
+    .fade-slide-leave-active {
+      transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .fade-slide-enter-from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    .fade-slide-leave-to {
+      opacity: 0;
+      transform: translateY(-14px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(2deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.08); }
+    }
+    @keyframes ripplePop {
+      0% { transform: scale(0.92); }
+      50% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+    .animate-float {
+      animation: gentleFloat 4.5s ease-in-out infinite;
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    .pop-active {
+      animation: ripplePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .stagger-item {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: staggerIn 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes staggerIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 舒適大字模式：全面提升字體與行距權重，覆蓋 Tailwind 局部小字類別 */
+    .elder-friendly-mode {
+      font-size: 1.15rem !important;
+    }
+    .elder-friendly-mode h1 { 
+      font-size: 1.85rem !important; 
+      line-height: 1.4 !important;
+    }
+    .elder-friendly-mode h2 { 
+      font-size: 1.45rem !important; 
+    }
+    .elder-friendly-mode h3 { 
+      font-size: 1.3rem !important; 
+      line-height: 1.4 !important;
+    }
+    .elder-friendly-mode h4 { 
+      font-size: 1.15rem !important; 
+    }
+    .elder-friendly-mode p,
+    .elder-friendly-mode li,
+    .elder-friendly-mode div:not(.text-2xl):not(.text-3xl) {
+      font-size: 1.05rem !important;
+      line-height: 1.7 !important;
+    }
+    .elder-friendly-mode .text-xs,
+    .elder-friendly-mode .text-\[11px\],
+    .elder-friendly-mode .text-\[10px\],
+    .elder-friendly-mode .text-\[9px\] {
+      font-size: 0.95rem !important;
+      line-height: 1.55 !important;
+    }
+    .elder-friendly-mode .font-mono {
+      font-size: 1rem !important;
+    }
+    .elder-friendly-mode button {
+      font-size: 0.95rem !important;
+    }
+
+    @keyframes sheetUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .animate-sheet-up {
+      animation: sheetUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex justify-center selection:bg-butter-200">
+  <div id="mount-root">
+  <div id="app" :class="{'elder-friendly-mode': isElderMode}" class="w-full max-w-lg bg-cream-50 min-h-screen flex flex-col relative pb-32 shadow-elevated border-x border-cream-200/60 transition-all duration-300">
+
+    <header class="pt-8 px-6 pb-4 relative overflow-hidden bg-gradient-to-b from-cream-100/80 via-cream-50 to-cream-50">
+      <div class="absolute -top-12 -right-10 w-44 h-44 bg-butter-200/40 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+      <div class="absolute top-16 -left-12 w-36 h-36 bg-sage-200/30 rounded-full blur-2xl pointer-events-none animate-pulse-glow" style="animation-delay: 1.5s"></div>
+
+      <!-- 頂部視角切換 & 大字模式 -->
+      <div class="flex items-center justify-between relative z-10">
+        <!-- 行程表 vs 打卡集切換 -->
+        <div class="flex items-center bg-white/90 backdrop-blur-md p-1 rounded-full border border-cream-200 shadow-tag">
+          <button 
+            @click="currentView = 'itinerary'"
+            class="px-3 py-1 text-xs rounded-full transition-all flex items-center gap-1"
+            :class="currentView === 'itinerary' ? 'bg-warmGray-800 text-white font-bold shadow-sm' : 'text-warmGray-600 hover:text-warmGray-900'"
+          >
+            <span>🗺️</span>
+            <span>行程</span>
+          </button>
+          <button 
+            @click="currentView = 'album'"
+            class="px-3 py-1 text-xs rounded-full transition-all flex items-center gap-1.5"
+            :class="currentView === 'album' ? 'bg-terracotta-500 text-white font-bold shadow-sm' : 'text-warmGray-600 hover:text-warmGray-900'"
+          >
+            <span>📸</span>
+            <span>打卡集</span>
+            <span v-if="totalPhotoCount > 0" class="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold" :class="currentView === 'album' ? 'bg-white text-terracotta-600' : 'bg-terracotta-100 text-terracotta-600'">
+              {{ totalPhotoCount }}
+            </span>
+          </button>
+        </div>
+        
+        <!-- 舒適大字模式開關 -->
+        <button 
+          @click="toggleElderMode"
+          class="flex items-center gap-1 text-xs px-3 py-1.5 rounded-full border transition-all active:scale-95 shadow-tag"
+          :class="isElderMode ? 'bg-butter-400 text-warmGray-800 font-bold border-butter-500' : 'bg-white/80 text-warmGray-600 border-cream-200'"
+        >
+          <span>👓</span>
+          <span>{{ isElderMode ? '大字 ON' : '舒適大字' }}</span>
+        </button>
+      </div>
+
+      <!-- 大標題手帳風與漂浮小圖示 -->
+      <div class="mt-4 relative z-10 flex items-end justify-between">
+        <div>
+          <h1 class="text-2xl font-serif font-bold tracking-tight text-warmGray-850 leading-snug">
+            {{ currentView === 'itinerary' ? '秋日南行・文化美食誌' : '📸 旅途回憶打卡集' }}
+          </h1>
+          <p class="text-xs text-warmGray-500 mt-1 font-light tracking-wide flex items-center gap-1.5">
+            <span>慢活步調</span>
+            <span>•</span>
+            <span>打卡集章</span>
+            <span>•</span>
+            <span>古蹟品茶</span>
+            <span>•</span>
+            <span>幸福回憶</span>
+          </p>
+        </div>
+        <div class="text-3xl animate-float cursor-pointer select-none hover:scale-110 transition-transform" @click="celebrateMood" title="點擊心情加分">
+          {{ currentMoodIcon }}
+        </div>
+      </div>
+
+      <!-- 僅在行程表視圖顯示進度儀表板 -->
+      <div v-if="currentView === 'itinerary'" class="mt-4 p-3 bg-white/85 backdrop-blur-md rounded-2xl border border-cream-200 shadow-soft space-y-2.5">
+        <div>
+          <div class="flex items-center justify-between text-[11px] text-warmGray-600 mb-1">
+            <span class="flex items-center gap-1 font-semibold">
+              <span>📍</span> 今日踩點進度
+            </span>
+            <span class="font-mono text-warmGray-800 font-bold">{{ completedCount }} / {{ currentDayData.spots.length }} 站</span>
+          </div>
+          <div class="w-full h-2 bg-cream-200 rounded-full overflow-hidden">
+            <div
+              class="h-full bg-gradient-to-r from-butter-400 via-terracotta-500 to-sage-500 rounded-full transition-all duration-500 ease-out"
+              :style="{ width: progressPercentage + '%' }"
+            ></div>
+          </div>
+        </div>
+
+        <!-- 拍照任務打卡進度 -->
+        <div class="pt-2 border-t border-cream-100">
+          <div class="flex items-center justify-between text-[11px] text-warmGray-600 mb-1">
+            <span class="flex items-center gap-1 font-semibold text-terracotta-600">
+              <span>📸</span> 拍照打卡任務完成度
+            </span>
+            <span class="font-mono text-terracotta-600 font-bold">{{ photoMissionCompletedCount }} / {{ currentDayData.spots.length }} 達成</span>
+          </div>
+          <div class="w-full h-2 bg-cream-200 rounded-full overflow-hidden">
+            <div
+              class="h-full bg-gradient-to-r from-terracotta-400 to-butter-500 rounded-full transition-all duration-500 ease-out"
+              :style="{ width: photoProgressPercentage + '%' }"
+            ></div>
+          </div>
+          <div class="mt-1 flex items-center justify-between text-[10px] text-warmGray-500">
+            <span>拍下開心笑容，留存最珍貴時光 💛</span>
+            <span v-if="photoMissionCompletedCount === currentDayData.spots.length" class="text-terracotta-600 font-bold">🏆 今日全制霸！</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 日程切換膠囊 Tab（僅在行程表視角顯示） -->
+      <div v-if="currentView === 'itinerary'" class="mt-4 flex items-center p-1.5 bg-warmGray-100/80 backdrop-blur-md rounded-2xl border border-cream-200 shadow-inner">
+        <button
+          v-for="(tab, index) in days"
+          :key="tab.id"
+          @click="changeDay(index)"
+          class="flex-1 py-2.5 rounded-xl text-center transition-all duration-300 relative text-xs font-medium active:scale-95"
+          :class="activeDay === index ? 'text-warmGray-850 shadow-soft font-bold' : 'text-warmGray-500 hover:text-warmGray-700'"
+        >
+          <span v-if="activeDay === index" class="absolute inset-0 bg-white rounded-xl transition-all shadow-sm border border-cream-200"></span>
+          <span class="relative z-10 flex flex-col items-center gap-0.5">
+            <span class="tracking-wide">{{ tab.tabLabel }}</span>
+            <span class="text-[10px] opacity-75 font-serif">{{ tab.date }}</span>
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 主體內容區塊：雙視角切換 -->
+    <main class="px-5 flex-1 relative mt-2">
+
+      <!-- ======================================================== -->
+      <!-- VIEW 1: 行程表模式 (Itinerary View)                     -->
+      <!-- ======================================================== -->
+      <transition name="fade-slide" mode="out-in">
+        <div v-if="currentView === 'itinerary'" :key="'itin-' + activeDay" class="space-y-6">
+
+          <!-- 韓系卡片：今日天氣與穿搭推薦 -->
+          <div class="bg-gradient-to-br from-white via-white to-cream-100/60 rounded-3xl p-4 border border-cream-200/90 shadow-soft relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-butter-100 rounded-full blur-xl pointer-events-none"></div>
+
+            <div class="flex items-start justify-between relative z-10">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-butter-100/80 border border-butter-200 flex items-center justify-center text-2xl shadow-inner">
+                  {{ currentDayData.weather.icon }}
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-warmGray-700">{{ currentDayData.weather.region }}</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-cream-200/70 text-warmGray-600 font-medium">
+                      {{ currentDayData.weather.condition }}
+                    </span>
+                  </div>
+                  <div class="text-xl font-bold font-serif text-warmGray-800 mt-0.5 tracking-tight">
+                    {{ currentDayData.weather.temp }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- 體感指標 -->
+              <div class="text-right space-y-0.5">
+                <div class="text-[11px] text-warmGray-500">
+                  紫外線 <span class="font-medium text-warmGray-700">{{ currentDayData.weather.uv }}</span>
+                </div>
+                <div class="text-[11px] text-warmGray-500">
+                  降雨機率 <span class="font-medium text-warmGray-700">{{ currentDayData.weather.rain }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- OOTD 穿搭筆記 -->
+            <div class="mt-3 pt-3 border-t border-cream-200/70 flex items-center gap-2 text-[11px] text-warmGray-600">
+              <span class="text-terracotta-500 font-bold">🍂 穿搭與貼心叮嚀</span>
+              <span class="font-light text-warmGray-600 leading-tight">{{ currentDayData.weather.outfit }}</span>
+            </div>
+          </div>
+
+          <!-- 韓系側邊欄資訊卡 (今日小提醒 & 交通指南模組) -->
+          <div class="grid grid-cols-2 gap-3">
+            <!-- 今日小提醒 -->
+            <div class="bg-white rounded-2xl p-3.5 border border-cream-200 shadow-soft">
+              <div class="flex items-center gap-1.5 text-xs font-bold text-terracotta-600 mb-2">
+                <span>💡</span>
+                <span>隨行遊玩小提醒</span>
+              </div>
+              <ul class="text-[11px] text-warmGray-600 space-y-1 font-light leading-snug">
+                <li v-for="(notice, nIdx) in currentDayData.notices" :key="nIdx" class="flex items-start gap-1">
+                  <span class="text-butter-500 text-[10px] mt-0.5">✔</span>
+                  <span>{{ notice }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- 今日交通與車程備忘 -->
+            <div class="bg-white rounded-2xl p-3.5 border border-cream-200 shadow-soft">
+              <div class="flex items-center gap-1.5 text-xs font-bold text-sage-700 mb-2">
+                <span>🚗</span>
+                <span>行車與歇腳備忘</span>
+              </div>
+              <p class="text-[11px] text-warmGray-600 font-light leading-snug">
+                {{ currentDayData.trafficNote }}
+              </p>
+              <div class="mt-2 pt-2 border-t border-cream-100 flex items-center justify-between text-[10px] text-warmGray-500">
+                <span>預估總車程</span>
+                <span class="font-mono font-bold text-warmGray-700">{{ currentDayData.driveTime }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 行程節點標題列 -->
+          <div class="flex items-center justify-between text-xs px-1 text-warmGray-600">
+            <span class="font-serif font-bold text-warmGray-800 text-sm flex items-center gap-1.5">
+              <span>📅</span> {{ currentDayData.title }}
+            </span>
+            <span class="bg-cream-200/60 px-2.5 py-0.5 rounded-full text-[11px] font-mono">
+              {{ currentDayData.spots.length }} 站點巡禮
+            </span>
+          </div>
+
+          <!-- 時間軸列表 -->
+          <div class="relative pl-6 space-y-5 before:content-[''] before:absolute before:left-[11px] before:top-3 before:bottom-3 before:w-[1.5px] before:bg-gradient-to-b before:from-butter-400 via-sage-200 to-cream-300">
+
+            <div
+              v-for="(spot, idx) in currentDayData.spots"
+              :key="activeDay + '-' + idx"
+              class="relative group transition-all duration-300 stagger-item"
+              :style="{ animationDelay: (idx * 0.07) + 's' }"
+            >
+              <!-- 節點圖釘圓圈 (打卡互動切換) -->
+              <div
+                @click="toggleCheck(idx)"
+                class="absolute -left-[29px] top-4 w-4 h-4 rounded-full border-2 border-white shadow-sm transition-all duration-300 cursor-pointer flex items-center justify-center text-[9px] text-white"
+                :class="isSpotChecked(idx) ? 'bg-sage-500 ring-4 ring-sage-100 scale-110' : (spot.isHighlight ? 'ring-4 ring-butter-100 bg-terracotta-500' : 'bg-butter-400 group-hover:scale-125')"
+                title="點擊標記為已踩點"
+              >
+                <span v-if="isSpotChecked(idx)">✓</span>
+              </div>
+
+              <!-- 主行程卡片 -->
+              <div
+                class="bg-white rounded-2xl p-4 border border-cream-200 shadow-soft hover:shadow-elevated transition-all duration-300 relative"
+                :class="{
+                  'border-butter-400/80 bg-gradient-to-b from-white to-butter-100/10': spot.isHighlight && !isSpotChecked(idx),
+                  'opacity-90 bg-cream-100/40': isSpotChecked(idx)
+                }"
+              >
+                <!-- 卡片頂部：時間、類別、拍照任務狀態與導航 -->
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-mono text-xs font-bold tracking-wider text-warmGray-700 bg-cream-100 px-2 py-0.5 rounded-lg border border-cream-200">
+                      {{ spot.time }}
+                    </span>
+                    <span
+                      class="text-[10px] font-medium px-2 py-0.5 rounded-full"
+                      :class="getTagColor(spot.category)"
+                    >
+                      {{ spot.category }}
+                    </span>
+                    <span v-if="isPhotoDone(idx)" class="text-[10px] text-terracotta-600 font-bold bg-terracotta-100/80 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                      📸 已合影
+                    </span>
+                  </div>
+
+                  <div class="flex items-center gap-1.5">
+                    <!-- 踩點完成切換小按鈕 -->
+                    <button
+                      @click="toggleCheck(idx)"
+                      class="text-[11px] px-2 py-1 rounded-full transition-all duration-200 border"
+                      :class="isSpotChecked(idx) ? 'bg-sage-100 border-sage-200 text-sage-700' : 'bg-white border-cream-200 text-warmGray-500 hover:bg-cream-100'"
+                    >
+                      {{ isSpotChecked(idx) ? '已抵達' : '抵達' }}
+                    </button>
+
+                    <!-- Google Maps 直通導航 -->
+                    <a
+                      v-if="spot.address"
+                      :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(spot.address)"
+                      target="_blank"
+                      class="text-[11px] font-medium text-terracotta-600 bg-terracotta-100/70 hover:bg-terracotta-100 px-2.5 py-1 rounded-full flex items-center gap-1 transition-all active:scale-95"
+                      title="在 Google Maps 開啟導航"
+                    >
+                      <span>導航</span>
+                      <svg class="w-3 h-3 stroke-current" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- 地點名稱 -->
+                <h3 class="text-base font-bold text-warmGray-800 font-serif tracking-tight flex items-center gap-1.5" :class="{'line-through text-warmGray-500': isSpotChecked(idx)}">
+                  {{ spot.name }}
+                  <span v-if="spot.isHighlight" class="text-xs text-butter-600 font-normal">✨ 必訪焦點</span>
+                </h3>
+
+                <!-- 地址顯示與一鍵複製 -->
+                <div
+                  v-if="spot.address"
+                  @click="copyAddress(spot.address)"
+                  class="mt-2 flex items-center gap-1.5 text-[11px] text-warmGray-500 bg-cream-100/90 hover:bg-butter-100/70 transition-colors px-2.5 py-1.5 rounded-xl cursor-pointer border border-cream-200 group/addr active:scale-[0.99]"
+                  title="點擊複製地址"
+                >
+                  <span class="text-terracotta-500 text-xs">📍</span>
+                  <span class="font-mono text-warmGray-700 truncate select-all">{{ spot.address }}</span>
+                  <span class="ml-auto text-[10px] text-warmGray-400 group-hover/addr:text-warmGray-800 transition-colors flex-shrink-0">複製</span>
+                </div>
+
+                <!-- 行程基礎描述 -->
+                <p class="text-xs text-warmGray-600 mt-2 font-light leading-relaxed">
+                  {{ spot.desc }}
+                </p>
+
+                <!-- 拍照打卡互動模組 -->
+                <div class="mt-3 p-3 rounded-2xl bg-gradient-to-r from-cream-100/80 to-butter-100/40 border border-butter-200/70 shadow-sm">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-base">📸</span>
+                      <span class="text-xs font-bold text-warmGray-800">拍照打卡任務：</span>
+                    </div>
+                    <button
+                      @click="openPhotoModal(idx)"
+                      class="text-[11px] font-bold px-3 py-1 rounded-full shadow-tag transition-all active:scale-95 flex items-center gap-1"
+                      :class="isPhotoDone(idx) ? 'bg-sage-500 text-white hover:bg-sage-600' : 'bg-terracotta-500 text-white hover:bg-terracotta-600 animate-pulse'"
+                    >
+                      <span>{{ isPhotoDone(idx) ? '查看／更換照片' : '上傳／拍攝照片' }}</span>
+                      <span>{{ isPhotoDone(idx) ? '📷' : '✨' }}</span>
+                    </button>
+                  </div>
+                  
+                  <!-- 拍照指引小提點 -->
+                  <p class="text-[11px] text-warmGray-700 font-medium mt-1.5 leading-snug flex items-start gap-1">
+                    <span class="text-terracotta-500">🎯</span>
+                    <span>任務提示：{{ spot.photoMission }}</span>
+                  </p>
+
+                  <!-- 若已打卡上傳，顯示縮圖與心得 (點擊開燈箱) -->
+                  <div 
+                    v-if="getPhotoRecord(idx)" 
+                    @click="openLightbox(getPhotoRecord(idx))"
+                    class="mt-2.5 p-2 bg-white rounded-xl border border-cream-200 flex items-center gap-3 cursor-pointer hover:border-terracotta-500 transition-colors group/cardthumb"
+                  >
+                    <img :src="getPhotoRecord(idx).img" alt="合照縮圖" class="w-12 h-12 object-cover rounded-lg border border-cream-200 shadow-sm group-hover/cardthumb:scale-105 transition-transform">
+                    <div class="flex-1 min-w-0">
+                      <div class="text-[11px] font-bold text-warmGray-800 truncate">{{ getPhotoRecord(idx).note || '今日美好回憶已留存！' }}</div>
+                      <div class="text-[10px] text-warmGray-400 mt-0.5">{{ getPhotoRecord(idx).time }} 已打卡 • 點擊看大圖</div>
+                    </div>
+                    <span class="text-xs bg-cream-100 text-warmGray-600 px-2 py-1 rounded-lg">🔍</span>
+                  </div>
+                </div>
+
+                <!-- 韓系圖文風：在地推薦 (美食/必買/必訪) -->
+                <div v-if="spot.recommends && spot.recommends.length" class="mt-3 p-2.5 bg-butter-100/40 rounded-xl border border-butter-200/60 hover:bg-butter-100/60 transition-colors">
+                  <div class="flex items-center gap-1 text-[11px] font-bold text-butter-600 mb-1.5">
+                    <span>🍴</span>
+                    <span>同行推薦必嚐：</span>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span
+                      v-for="(rec, rIdx) in spot.recommends"
+                      :key="rIdx"
+                      class="text-[10px] px-2 py-0.5 bg-white rounded-lg text-warmGray-700 border border-butter-200 shadow-sm transition-transform hover:-translate-y-0.5"
+                    >
+                      {{ rec }}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- 韓系圖文風：小知識 / 私房冷知識 -->
+                <div v-if="spot.trivia" class="mt-2.5 p-2.5 bg-sage-100/50 rounded-xl border border-sage-200/60 text-[11px] text-warmGray-700">
+                  <div class="flex items-center gap-1 font-bold text-sage-700 mb-0.5">
+                    <span>🌿</span>
+                    <span>私房小知識：</span>
+                  </div>
+                  <p class="font-light leading-relaxed text-warmGray-600">
+                    {{ spot.trivia }}
+                  </p>
+                </div>
+
+                <!-- 貼心補充提示標籤 -->
+                <div v-if="spot.tips" class="mt-2.5 pt-2 border-t border-dashed border-cream-200 flex items-start gap-1.5 text-[11px] text-warmGray-500">
+                  <span class="text-terracotta-500 font-semibold text-xs flex-shrink-0">貼心 TIP</span>
+                  <span class="leading-tight">{{ spot.tips }}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 底部拍照徽章成就櫃 -->
+          <div class="mt-4 p-4 rounded-3xl bg-white border border-cream-200 shadow-soft">
+            <div class="flex items-center justify-between pb-2 border-b border-cream-100">
+              <span class="font-serif font-bold text-warmGray-800 text-xs flex items-center gap-1.5">
+                <span>🏅</span> 旅途打卡榮譽勳章
+              </span>
+              <button @click="currentView = 'album'" class="text-[10px] text-terracotta-600 font-bold hover:underline">
+                前往相簿 ({{ totalPhotoCount }} 張) →
+              </button>
+            </div>
+            <div class="grid grid-cols-3 gap-2.5 mt-3">
+              <div 
+                class="p-2.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1"
+                :class="totalPhotoCount >= 3 ? 'bg-butter-100/70 border-butter-400 text-warmGray-850' : 'bg-cream-100/40 border-cream-200 text-warmGray-400 opacity-60'"
+              >
+                <span class="text-2xl">{{ totalPhotoCount >= 3 ? '🎖️' : '🔒' }}</span>
+                <span class="text-[11px] font-bold">攝影初段</span>
+                <span class="text-[9px]">完成 3 處拍照</span>
+              </div>
+
+              <div 
+                class="p-2.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1"
+                :class="totalPhotoCount >= 8 ? 'bg-sage-100 border-sage-400 text-warmGray-850' : 'bg-cream-100/40 border-cream-200 text-warmGray-400 opacity-60'"
+              >
+                <span class="text-2xl">{{ totalPhotoCount >= 8 ? '👑' : '🔒' }}</span>
+                <span class="text-[11px] font-bold">旅拍達人</span>
+                <span class="text-[9px]">完成 8 處拍照</span>
+              </div>
+
+              <div 
+                class="p-2.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1"
+                :class="totalPhotoCount >= 15 ? 'bg-terracotta-100 border-terracotta-400 text-warmGray-850' : 'bg-cream-100/40 border-cream-200 text-warmGray-400 opacity-60'"
+              >
+                <span class="text-2xl">{{ totalPhotoCount >= 15 ? '🏆' : '🔒' }}</span>
+                <span class="text-[11px] font-bold">回憶大滿貫</span>
+                <span class="text-[9px]">全員全制霸！</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 底部當日必吃必訪精選清單 -->
+          <div class="mt-4 p-4 rounded-3xl bg-white border border-cream-200 shadow-soft">
+            <div class="flex items-center justify-between pb-2 border-b border-cream-100">
+              <span class="font-serif font-bold text-warmGray-800 text-xs flex items-center gap-1.5">
+                <span>🏷️</span> {{ currentDayData.showcaseTitle }}
+              </span>
+              <span class="text-[10px] text-warmGray-500 font-light">好口味・無負擔</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
+              <div
+                v-for="(item, iIdx) in currentDayData.showcaseItems"
+                :key="iIdx"
+                class="p-2.5 bg-cream-100/60 rounded-xl text-center border border-cream-200 flex flex-col items-center justify-center gap-1"
+              >
+                <span class="text-xl">{{ item.icon }}</span>
+                <span class="font-bold text-[11px] text-warmGray-800">{{ item.name }}</span>
+                <span class="text-[9px] text-warmGray-500 leading-tight">{{ item.desc }}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </transition>
+
+      <!-- ======================================================== -->
+      <!-- VIEW 2: 旅途回憶打卡集 (Photo Album View)                -->
+      <!-- ======================================================== -->
+      <transition name="fade-slide" mode="out-in">
+        <div v-if="currentView === 'album'" key="view-album" class="space-y-4">
+          
+          <!-- 相簿篩選器與總結小卡 -->
+          <div class="bg-white rounded-3xl p-4 border border-cream-200 shadow-soft text-center">
+            <h2 class="text-base font-bold font-serif text-warmGray-850">📸 旅途回憶打卡集</h2>
+            <p class="text-xs text-warmGray-500 mt-1">共珍藏了 {{ allPhotoList.length }} 張美好足跡紀錄</p>
+
+            <!-- 篩選器按鈕 -->
+            <div class="flex justify-center gap-1.5 mt-3">
+              <button
+                v-for="filter in ['全部', 'Day 1', 'Day 2', 'Day 3']"
+                :key="filter"
+                @click="albumFilter = filter"
+                class="px-3 py-1 text-xs rounded-full border transition-all"
+                :class="albumFilter === filter 
+                  ? 'bg-terracotta-500 text-white border-terracotta-600 font-bold shadow-sm' 
+                  : 'bg-cream-100 text-warmGray-600 border-cream-200 hover:bg-white'"
+              >
+                {{ filter }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 讀取共享照片中 -->
+          <div v-if="isLoadingPhotos" class="w-full p-8 text-center text-xs text-warmGray-500">
+            正在讀取大家的打卡照片…
+          </div>
+
+          <!-- 空狀態展示 (尚未有任何打卡相片時) -->
+          <div 
+            v-else-if="filteredAlbumList.length === 0" 
+            class="w-full p-8 border-2 border-dashed border-cream-300 rounded-3xl bg-white/70 flex flex-col items-center justify-center text-center space-y-3"
+          >
+            <span class="text-4xl">📷</span>
+            <div>
+              <h3 class="text-sm font-bold text-warmGray-800 font-serif">此區尚無打卡照片</h3>
+              <p class="text-xs text-warmGray-500 mt-1 max-w-[220px]">
+                可回到行程表，在各景點點擊「拍攝／上傳照片」留下美好瞬間！
+              </p>
+            </div>
+            <button 
+              @click="currentView = 'itinerary'"
+              class="px-4 py-2 bg-butter-400 hover:bg-butter-500 text-warmGray-850 font-bold text-xs rounded-2xl shadow-tag transition-all active:scale-95"
+            >
+              返回行程表去打卡 →
+            </button>
+          </div>
+
+          <!-- 照片雙欄瀑布網格清單 -->
+          <div v-else class="grid grid-cols-2 gap-3">
+            <div
+              v-for="item in filteredAlbumList"
+              :key="item.key"
+              class="bg-white rounded-2xl overflow-hidden border border-cream-200 shadow-soft flex flex-col group/photocard transition-all duration-300 hover:shadow-elevated"
+            >
+              <!-- 照片主體 (點擊開燈箱) -->
+              <div 
+                class="relative h-36 w-full cursor-pointer overflow-hidden bg-cream-100" 
+                @click="openLightbox(item)"
+              >
+                <img :src="item.img" class="w-full h-full object-cover group-hover/photocard:scale-105 transition-transform duration-300">
+                <span class="absolute top-2 left-2 text-[9px] bg-black/60 backdrop-blur-sm text-white px-2 py-0.5 rounded-full font-mono">
+                  Day {{ item.dayIndex + 1 }}
+                </span>
+              </div>
+
+              <!-- 照片資訊與操作 -->
+              <div class="p-3 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 class="text-xs font-bold text-warmGray-850 truncate font-serif">{{ item.spotName }}</h4>
+                  <p class="text-[10px] text-warmGray-600 mt-1 line-clamp-2 leading-relaxed">
+                    {{ item.note || '留下了幸福的瞬間 🍃' }}
+                  </p>
+                </div>
+
+                <!-- 下載與刪除按鈕 -->
+                <div class="flex items-center justify-between mt-3 pt-2 border-t border-cream-100">
+                  <span class="text-[9px] text-warmGray-400 font-mono">{{ item.time }}</span>
+                  <div class="flex items-center gap-1.5">
+                    <button 
+                      @click.stop="downloadPhoto(item)" 
+                      class="p-1.5 rounded-lg bg-cream-100 hover:bg-cream-200 text-warmGray-700 text-xs transition-colors"
+                      title="下載照片"
+                    >
+                      📥
+                    </button>
+                    <button 
+                      @click.stop="deletePhoto(item.key)" 
+                      class="p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 text-xs transition-colors"
+                      title="刪除照片"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </transition>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 1: 拍照打卡專屬彈出視窗 (Photo Check-in Modal)     -->
+    <!-- ======================================================== -->
+    <div
+      v-if="activePhotoModalSpot !== null"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-warmGray-900/60 backdrop-blur-sm transition-all"
+      @click.self="closePhotoModal"
+    >
+      <div class="bg-white w-full max-w-sm rounded-3xl p-5 border border-cream-200 shadow-elevated">
+        <div class="flex items-center justify-between pb-3 border-b border-cream-100">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📸</span>
+            <div>
+              <h4 class="text-sm font-bold text-warmGray-800 font-serif">拍照打卡任務</h4>
+              <p class="text-[10px] text-warmGray-500">{{ currentModalSpot.name }}</p>
+            </div>
+          </div>
+          <button @click="closePhotoModal" class="text-warmGray-400 hover:text-warmGray-800 text-lg font-bold p-1">✕</button>
+        </div>
+
+        <div class="mt-3 space-y-3">
+          <!-- 任務指引 -->
+          <div class="p-3 bg-butter-100/60 rounded-xl border border-butter-200 text-xs text-warmGray-700">
+            <span class="font-bold text-butter-600 block mb-1">🎯 拍照指定任務：</span>
+            {{ currentModalSpot.photoMission }}
+          </div>
+
+          <!-- 照片預覽區 (點擊觸發韓系選擇選單) -->
+          <div 
+            class="relative w-full h-44 bg-cream-100 rounded-2xl border-2 border-dashed border-cream-300 flex flex-col items-center justify-center overflow-hidden group cursor-pointer hover:bg-butter-100/30 transition-colors" 
+            @click="openSourcePicker"
+          >
+            <img v-if="tempPhotoPreview" :src="tempPhotoPreview" class="w-full h-full object-cover">
+            <div v-else class="flex flex-col items-center text-center p-4">
+              <span class="text-3xl mb-1">📷</span>
+              <span class="text-xs font-bold text-warmGray-700">點擊選擇拍照或相簿</span>
+              <span class="text-[10px] text-warmGray-400 mt-0.5">可直接拍照或從手機相簿挑選</span>
+            </div>
+
+            <!-- 兩組原生隱藏 input：相機直拍與手機相簿選取 -->
+            <input type="file" ref="cameraInputRef" accept="image/*" capture="environment" class="hidden" @change="handleFileChange">
+            <input type="file" ref="galleryInputRef" accept="image/*" class="hidden" @change="handleFileChange">
+          </div>
+
+          <!-- 幸福小語 / 心情短語 -->
+          <div>
+            <label class="block text-[11px] font-semibold text-warmGray-700 mb-1">心情留念筆記：</label>
+            <input 
+              v-model="tempPhotoNote"
+              type="text" 
+              placeholder="例如：笑得好開心、氣氛真棒！" 
+              class="w-full text-xs px-3 py-2 bg-cream-50 border border-cream-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-butter-400"
+            />
+          </div>
+
+          <!-- 快速預設回憶標籤 -->
+          <div class="flex flex-wrap gap-1.5">
+            <button 
+              v-for="(tag, tIdx) in quickTags" 
+              :key="tIdx" 
+              @click="tempPhotoNote = tag"
+              class="text-[10px] px-2 py-1 bg-cream-100 hover:bg-butter-100 rounded-lg text-warmGray-600 border border-cream-200 transition-colors"
+            >
+              + {{ tag }}
+            </button>
+          </div>
+
+          <!-- 儲存按鈕 -->
+          <div class="pt-2 flex items-center gap-2">
+            <button
+              @click="closePhotoModal"
+              class="w-1/3 py-2.5 bg-cream-200 hover:bg-cream-300 text-warmGray-700 font-bold text-xs rounded-xl transition-all"
+            >
+              取消
+            </button>
+            <button
+              @click="savePhotoMission"
+              :disabled="!tempPhotoPreview || isUploadingPhoto"
+              class="flex-1 py-2.5 bg-gradient-to-r from-terracotta-500 to-butter-500 text-white font-bold text-xs rounded-xl shadow-soft transition-transform active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <span>{{ isUploadingPhoto ? '上傳中，請稍候…' : '存入回憶打卡集' }}</span>
+              <span v-if="!isUploadingPhoto">✨</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 2: 韓系拍照 / 相簿二合一選單 (Action Sheet)       -->
+    <!-- ======================================================== -->
+    <div
+      v-if="showSourceSheet"
+      class="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-warmGray-900/60 backdrop-blur-sm"
+      @click.self="showSourceSheet = false"
+    >
+      <div class="w-full max-w-sm bg-white rounded-t-3xl sm:rounded-3xl p-5 shadow-elevated border border-cream-200 animate-sheet-up space-y-3">
+        <div class="text-center pb-2 border-b border-cream-100">
+          <h4 class="text-xs font-bold text-warmGray-800 font-serif">選擇照片來源</h4>
+          <p class="text-[10px] text-warmGray-500 mt-0.5">即時記錄燦爛時光</p>
+        </div>
+
+        <div class="space-y-2">
+          <!-- 選項 1：開啟相機拍照 -->
+          <button
+            @click="triggerCamera"
+            class="w-full py-3.5 px-4 bg-butter-100/80 hover:bg-butter-200 text-warmGray-850 rounded-2xl flex items-center justify-between transition-all active:scale-[0.98] border border-butter-200 text-xs font-bold shadow-sm"
+          >
+            <div class="flex items-center gap-2.5">
+              <span class="text-xl">📸</span>
+              <span>開啟相機拍照</span>
+            </div>
+            <span class="text-[10px] text-warmGray-700 bg-white px-2 py-0.5 rounded-full border border-butter-200">鏡頭直拍</span>
+          </button>
+
+          <!-- 選項 2：從手機相簿選取 -->
+          <button
+            @click="triggerGallery"
+            class="w-full py-3.5 px-4 bg-cream-100 hover:bg-cream-200 text-warmGray-850 rounded-2xl flex items-center justify-between transition-all active:scale-[0.98] border border-cream-200 text-xs font-bold shadow-sm"
+          >
+            <div class="flex items-center gap-2.5">
+              <span class="text-xl">🖼️</span>
+              <span>從手機相簿選取</span>
+            </div>
+            <span class="text-[10px] text-warmGray-500 bg-white px-2 py-0.5 rounded-full border border-cream-200">本機相冊</span>
+          </button>
+        </div>
+
+        <!-- 取消按鈕 -->
+        <button
+          @click="showSourceSheet = false"
+          class="w-full py-2.5 bg-cream-200 hover:bg-cream-300 text-warmGray-700 font-medium text-xs rounded-2xl transition-colors"
+        >
+          取消
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 3: 照片燈箱放大檢視 (Lightbox)                     -->
+    <!-- ======================================================== -->
+    <div
+      v-if="lightboxItem"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
+      @click="lightboxItem = null"
+    >
+      <div class="max-w-md w-full bg-white rounded-3xl overflow-hidden shadow-elevated" @click.stop>
+        <div class="relative max-h-[70vh] bg-black flex items-center justify-center">
+          <img :src="lightboxItem.img" class="max-h-[70vh] w-auto object-contain">
+          <button 
+            @click="lightboxItem = null" 
+            class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 text-sm font-bold"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="p-4 bg-white flex items-center justify-between">
+          <div>
+            <h4 class="text-sm font-bold text-warmGray-900 font-serif">{{ lightboxItem.spotName }}</h4>
+            <p class="text-xs text-warmGray-500 mt-0.5">{{ lightboxItem.note || '留存最美的時光' }}</p>
+          </div>
+          <button 
+            @click="downloadPhoto(lightboxItem)"
+            class="px-3.5 py-1.5 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1 active:scale-95"
+          >
+            <span>📥</span>
+            <span>下載</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 輕提示 Toast 訊息 -->
+    <div
+      v-if="toastMessage"
+      class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-warmGray-800/95 text-white text-xs px-4 py-2.5 rounded-full shadow-elevated backdrop-blur-sm transition-all duration-300 flex items-center gap-1.5 border border-white/20"
+    >
+      <span>✨</span>
+      <span>{{ toastMessage }}</span>
+    </div>
+
+    <!-- 底部固定簡約狀態列 -->
+    <footer class="fixed bottom-0 max-w-lg w-full bg-white/95 backdrop-blur-lg border-t border-cream-200 py-2.5 px-6 flex items-center justify-between text-xs text-warmGray-500 z-30">
+      <div class="flex items-center gap-2">
+        <button 
+          @click="currentView = 'itinerary'"
+          class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl transition-all"
+          :class="currentView === 'itinerary' ? 'bg-cream-100 text-warmGray-900 font-bold' : 'text-warmGray-500 hover:text-warmGray-800'"
+        >
+          <span class="w-2 h-2 rounded-full bg-sage-500 animate-ping"></span>
+          <span>行程表</span>
+        </button>
+        <button 
+          @click="currentView = 'album'"
+          class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl transition-all"
+          :class="currentView === 'album' ? 'bg-terracotta-100 text-terracotta-700 font-bold' : 'text-warmGray-500 hover:text-warmGray-800'"
+        >
+          <span>📸 打卡集</span>
+          <span v-if="totalPhotoCount > 0" class="text-[9px] bg-terracotta-500 text-white px-1.5 rounded-full font-bold">
+            {{ totalPhotoCount }}
+          </span>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2 font-mono text-[11px]">
+        <span class="bg-cream-100 px-2 py-0.5 rounded-md border border-cream-200">
+          {{ currentView === 'itinerary' ? `Day ${activeDay + 1} / 3` : 'Photo Album' }}
+        </span>
+        <button
+          @click="scrollToTop"
+          class="text-warmGray-700 font-medium hover:text-terracotta-500 transition-colors"
+        >
+          回頂部 ↑
+        </button>
+      </div>
+    </footer>
+
+  </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, reactive, onMounted } = Vue;
+
+    // ⚠️ 部署後請把下面這個網址換成你自己 Apps Script 部署出來的 Web App 網址
+    const PHOTO_API_URL = 'https://script.google.com/macros/s/AKfycby4QKPPMHrMkMAbCe45eqKwce91yXTeazUtfaB_QlMqjDxJJEacKtgB4vJcv7RRP2uc/exec';
+
+    createApp({
+      setup() {
+        const activeDay = ref(0);
+        const currentView = ref('itinerary'); // 'itinerary' | 'album'
+        const albumFilter = ref('全部');
+        const lightboxItem = ref(null);
+
+        const toastMessage = ref('');
+        const currentMoodIcon = ref('☕');
+        const isElderMode = ref(false);
+        const moodIcons = ['☕', '🍁', '🚗', '🍡', '🍵', '✨', '📸', '😄', '🎒'];
+
+        // 記錄踩點打卡狀況 (依 dayIndex-spotIndex 存放布林值)
+        const checkMap = reactive({});
+
+        // 記錄拍照打卡成果 (存放照片 preview, note, timestamp)
+        const photoRecords = reactive({});
+
+        // 拍照彈出視窗狀態
+        const activePhotoModalSpot = ref(null);
+        const tempPhotoPreview = ref('');
+        const tempPhotoNote = ref('');
+        const cameraInputRef = ref(null);
+        const galleryInputRef = ref(null);
+        const showSourceSheet = ref(false);
+        const isLoadingPhotos = ref(false);
+        const isUploadingPhoto = ref(false);
+
+        // 將圖片壓縮後再轉成 base64，避免上傳太慢、超過 Apps Script 限制
+        const compressImage = (file, maxWidth = 1280, quality = 0.8) => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              const img = new Image();
+              img.onload = () => {
+                const scale = Math.min(1, maxWidth / img.width);
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width * scale;
+                canvas.height = img.height * scale;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                resolve(canvas.toDataURL('image/jpeg', quality));
+              };
+              img.onerror = reject;
+              img.src = event.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+        };
+
+        // 從 Google Sheets 讀取大家已上傳的照片，還原成 photoRecords
+        const loadPhotosFromServer = async () => {
+          isLoadingPhotos.value = true;
+          try {
+            const res = await fetch(`${PHOTO_API_URL}?action=list`);
+            const data = await res.json();
+            (data.photos || []).forEach(p => {
+              photoRecords[p.key] = {
+                img: p.fileUrl,
+                note: p.note,
+                time: p.time,
+                dayIndex: Number(p.dayIndex),
+                spotIndex: Number(p.spotIndex),
+                spotName: p.spotName,
+                fileId: p.fileId
+              };
+              checkMap[p.key] = true;
+            });
+          } catch (err) {
+            toastMessage.value = '⚠️ 無法讀取共享照片，請確認網路連線';
+            setTimeout(() => { toastMessage.value = ''; }, 2500);
+          } finally {
+            isLoadingPhotos.value = false;
+          }
+        };
+
+        const quickTags = ['笑顏滿分 🌸', '跟神明合照祈求平安 🙏', '這道小吃超讚 😋', '漫步風景好舒服 🍃'];
+
+        const toggleElderMode = () => {
+          isElderMode.value = !isElderMode.value;
+          toastMessage.value = isElderMode.value ? '👓 已開啟舒適大字模式' : '已切換回標準字體';
+          setTimeout(() => { toastMessage.value = ''; }, 1800);
+        };
+
+        const isSpotChecked = (idx) => {
+          return !!checkMap[`${activeDay.value}-${idx}`];
+        };
+
+        const isPhotoDone = (idx) => {
+          return !!photoRecords[`${activeDay.value}-${idx}`];
+        };
+
+        const getPhotoRecord = (idx) => {
+          return photoRecords[`${activeDay.value}-${idx}`] || null;
+        };
+
+        const toggleCheck = (idx) => {
+          const key = `${activeDay.value}-${idx}`;
+          checkMap[key] = !checkMap[key];
+          if (checkMap[key]) {
+            toastMessage.value = '🎉 踩點完成！漫遊進度大躍進！';
+            setTimeout(() => { toastMessage.value = ''; }, 2000);
+          }
+        };
+
+        // 開啟拍照打卡視窗
+        const openPhotoModal = (idx) => {
+          activePhotoModalSpot.value = idx;
+          const currentRec = photoRecords[`${activeDay.value}-${idx}`];
+          if (currentRec) {
+            tempPhotoPreview.value = currentRec.img;
+            tempPhotoNote.value = currentRec.note;
+          } else {
+            tempPhotoPreview.value = '';
+            tempPhotoNote.value = '';
+          }
+          showSourceSheet.value = false;
+        };
+
+        const closePhotoModal = () => {
+          activePhotoModalSpot.value = null;
+          tempPhotoPreview.value = '';
+          tempPhotoNote.value = '';
+          showSourceSheet.value = false;
+        };
+
+        const openSourcePicker = () => {
+          showSourceSheet.value = true;
+        };
+
+        const triggerCamera = () => {
+          showSourceSheet.value = false;
+          if (cameraInputRef.value) {
+            cameraInputRef.value.click();
+          }
+        };
+
+        const triggerGallery = () => {
+          showSourceSheet.value = false;
+          if (galleryInputRef.value) {
+            galleryInputRef.value.click();
+          }
+        };
+
+        const handleFileChange = async (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (file) {
+            try {
+              tempPhotoPreview.value = await compressImage(file);
+              toastMessage.value = '照片選取成功！';
+              setTimeout(() => { toastMessage.value = ''; }, 1500);
+            } catch (err) {
+              toastMessage.value = '照片讀取失敗，請重試';
+              setTimeout(() => { toastMessage.value = ''; }, 1800);
+            }
+          }
+          e.target.value = '';
+        };
+
+        const savePhotoMission = async () => {
+          if (activePhotoModalSpot.value === null || !tempPhotoPreview.value) return;
+          const key = `${activeDay.value}-${activePhotoModalSpot.value}`;
+
+          const now = new Date();
+          const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+          const spotName = currentModalSpot.value?.name || '旅途景點';
+          const note = tempPhotoNote.value || '合影留念，旅途平安喜樂！';
+
+          isUploadingPhoto.value = true;
+          try {
+            const res = await fetch(PHOTO_API_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // 避免觸發 CORS 預檢請求
+              body: JSON.stringify({
+                action: 'upload',
+                key, note, time: timeStr, spotName,
+                dayIndex: activeDay.value,
+                spotIndex: activePhotoModalSpot.value,
+                imageBase64: tempPhotoPreview.value
+              })
+            });
+            const data = await res.json();
+            if (!data.success) throw new Error(data.error || '上傳失敗');
+
+            photoRecords[key] = {
+              img: data.fileUrl,
+              note, time: timeStr,
+              dayIndex: activeDay.value,
+              spotIndex: activePhotoModalSpot.value,
+              spotName,
+              fileId: data.fileId
+            };
+            checkMap[key] = true;
+
+            toastMessage.value = '📸 拍照任務達成！已同步給大家！';
+            closePhotoModal();
+          } catch (err) {
+            toastMessage.value = '⚠️ 上傳失敗，請確認網路後再試一次';
+          } finally {
+            isUploadingPhoto.value = false;
+            setTimeout(() => { toastMessage.value = ''; }, 2200);
+          }
+        };
+
+        const deletePhoto = async (key) => {
+          const rec = photoRecords[key];
+          if (!rec) return;
+          try {
+            const res = await fetch(PHOTO_API_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: JSON.stringify({ action: 'delete', key })
+            });
+            const data = await res.json();
+            if (!data.success) throw new Error(data.error || '刪除失敗');
+
+            delete photoRecords[key];
+            toastMessage.value = '已移除該張打卡相片（大家都會看到更新）';
+          } catch (err) {
+            toastMessage.value = '⚠️ 刪除失敗，請確認網路後再試一次';
+          }
+          setTimeout(() => { toastMessage.value = ''; }, 1800);
+        };
+
+        const downloadPhoto = (item) => {
+          try {
+            const a = document.createElement('a');
+            a.href = item.img;
+            a.download = `${item.spotName}_打卡回憶.jpg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            toastMessage.value = '照片下載成功！';
+          } catch (e) {
+            toastMessage.value = '長按照片即可直接儲存';
+          }
+          setTimeout(() => { toastMessage.value = ''; }, 2000);
+        };
+
+        const openLightbox = (item) => {
+          lightboxItem.value = item;
+        };
+
+        const celebrateMood = () => {
+          const next = moodIcons[(moodIcons.indexOf(currentMoodIcon.value) + 1) % moodIcons.length];
+          currentMoodIcon.value = next;
+          toastMessage.value = `心情切換：${next} 享受漫活旅程！`;
+          setTimeout(() => { toastMessage.value = ''; }, 1500);
+        };
+
+        const changeDay = (index) => {
+          activeDay.value = index;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        const scrollToTop = () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        const copyAddress = (addr) => {
+          if (!addr) return;
+          try {
+            const input = document.createElement('input');
+            input.setAttribute('value', addr);
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+
+            toastMessage.value = '✓ 地址已複製到剪貼簿';
+            setTimeout(() => {
+              toastMessage.value = '';
+            }, 2000);
+          } catch (e) {
+            console.error(e);
+          }
+        };
+
+        // 三天兩夜完整行程資料
+        const days = [
+          {
+            id: 'day1',
+            tabLabel: 'Day 1',
+            date: '10/14 (三)',
+            title: '出發南巡・神威古鎮老街漫步',
+            driveTime: '約 3.5 小時',
+            trafficNote: '汐止 08:30 出發避開尖峰；白沙屯走台61西濱海線風景怡人；鹿港轉國一抵達嘉義。',
+            notices: [
+              '白沙屯拱天宮香火鼎盛，可停靠第二停車場，路面平坦好行走',
+              '鹿港天后宮到城隍廟步行僅 5 分鐘，沿途有騎樓與長凳可隨時坐下歇息',
+              '嘉義兆品鄰近文化路夜市，飯店有提供熱水壺與舒心備品'
+            ],
+            showcaseTitle: 'Day 1 好入口私房名冊',
+            showcaseItems: [
+              { icon: '🥠', name: '阿振肉包/牛舌餅', desc: '皮嫩餡香好咬無負擔' },
+              { icon: '🧋', name: '白沙屯古早粉圓', desc: '微糖少冰消暑順口' },
+              { icon: '🍲', name: '林聰明沙鍋魚頭', desc: '湯頭熬煮軟爛暖胃' },
+              { icon: '🥤', name: '御香屋葡萄柚綠', desc: '半糖少冰生津止渴' }
+            ],
+            weather: {
+              region: '彰化 / 嘉義',
+              condition: '晴朗秋爽 🌤️',
+              temp: '23° - 29°C',
+              icon: '☀️',
+              uv: '中量級 (4)',
+              rain: '10%',
+              outfit: '薄棉質長袖襯衫、休閒長褲、好走健走鞋；海邊風微大，備妥防風薄絲巾或外套。'
+            },
+            spots: [
+              {
+                time: '08:30',
+                name: '汐止出發',
+                category: '出發移動',
+                address: '新北市汐止區新昌路1號 (汐止車站前起點)',
+                desc: '往桃園方向啟程，避開早晨最尖峰車潮。車上備好保溫瓶與輕柔音樂。',
+                photoMission: '車內出發大合照，比出「開心出發」的手勢！',
+                recommends: ['出發前備足溫開水與水果切片'],
+                trivia: '避開台北環東大道尖峰，建議由汐止交流道直接匯入國道一號，行車最平穩不暈車。',
+                tips: '建議出發前先上洗手間，中途若有需要可在中壢休息站稍微活動筋骨。'
+              },
+              {
+                time: '09:30',
+                name: '桃園威天宮',
+                category: '香火參拜',
+                address: '桃園市龜山區大坑路三段150巷1號',
+                desc: '參拜全台最高室內關聖帝君，虔心敬祈全家長壽安康、平安轉運。',
+                photoMission: '與巍峨高聳的室內關公像前，拍下手握轉運龍銀的吉祥合影！',
+                recommends: ['轉運龍銀求健康平安', '金孔雀前合影留念'],
+                trivia: '威天宮供奉的關公座像高達七米二，是全東南亞最高的室內青銅關公；廟方提倡環保不燒紙錢，以「轉運龍銀」過爐祈福非常特別！',
+                tips: '廟埕備有大型無障礙電梯與平整走道，散步完全不費力。'
+              },
+              {
+                time: '11:00',
+                name: '苗栗白沙屯拱天宮',
+                category: '宗教巡禮',
+                address: '苗栗縣通霄鎮白東里8號',
+                desc: '參拜拱天宮媽祖廟，感受海岸古樸漁村的虔誠信仰力量與純樸人情味。',
+                photoMission: '在「拱天宮」牌樓下，大家牽著手拍下溫馨出遊合照！',
+                recommends: ['廟前阿婆古早味粉圓', '現炊白沙屯肉圓', '拱天宮文創安平符卡'],
+                trivia: '白沙屯媽祖徒步進香已有近200年歷史，神轎行走全憑媽祖旨意、無固定路線，被信徒暱稱為「粉紅超跑」！廟前老街的現煮粉圓配碎冰更是消暑一絕。',
+                tips: '廟前有小市集可稍作補給；若走累了，可在廟埕迴廊的長石椅坐下休息吹海風。'
+              },
+              {
+                time: '13:00',
+                name: '彰化鹿港老街',
+                category: '老街美饌',
+                address: '彰化縣鹿港鎮瑤林街與埔頭街一帶',
+                desc: '享用午餐＋老街經典在地小吃（蝦猴酥、蚵嗲、麵線糊、麵茶冰）。',
+                isHighlight: true,
+                photoMission: '在紅磚古樸小巷前，捕捉大口品嚐美味肉包或麵線糊的生動笑容！',
+                recommends: ['酥炸一口蝦猴', '古早味溫熱麵茶', '王罔麵線糊 (軟爛好入口)', '生炒五味'],
+                trivia: '鹿港昔日為台灣第二大港（「一府二鹿三艋舺」），老街紅磚巷弄的曲折設計其實是為了防禦海盜與阻擋秋冬強勁的「九降風」，所以又稱「九曲巷」。',
+                tips: '建議車停鹿港公有立體停車場，步行至老街核心只需3分鐘，石板路平緩好走。'
+              },
+              {
+                time: '14:30',
+                name: '鹿港天后宮',
+                category: '古蹟名勝',
+                address: '彰化縣鹿港鎮中山路430號',
+                desc: '步行可達，參拜湄洲媽祖開基聖尊，欣賞精雕細琢的藻井國寶木雕工藝。',
+                photoMission: '在香火裊裊的大殿前，拍下雙手合十、虔誠祈願的神韻留影！',
+                recommends: ['殿頂八卦藻井木雕', '千里眼順風耳精雕'],
+                trivia: '鹿港天后宮是台灣唯一完整保留湄洲媽祖祖廟開基二媽神尊的廟宇，正殿上方的「八卦藻井」由大師王益順設計，全不用一根鐵釘接合，堪稱國寶建築奇蹟。',
+                tips: '老街一路步行穿梭，散步約5分鐘即抵達，廟內有香客專用奉茶機可補水。'
+              },
+              {
+                time: '15:00',
+                name: '鹿港城隍廟',
+                category: '古廟巡禮',
+                address: '彰化縣鹿港鎮中山路366號',
+                desc: '步行可達，與天后宮同區，祈求公正明理、闔家驅邪避禍、福壽綿長。',
+                photoMission: '抬頭指著殿頂傳奇「大算盤」，一起合照比個讚！',
+                recommends: ['參拜大算盤祈求行事無差錯', '門前古早現烤牛舌餅'],
+                trivia: '城隍爺相當於人間的地方官與司法官，正殿上方高掛著一副巨大的「大算盤」，象徵神明清算世人一生功過善惡，提醒信徒做事捫心自問、秉持良善。',
+                tips: '廟前周邊是選購古早味伴手禮（軟質牛舌餅、綠豆糕）的最佳地點。'
+              },
+              {
+                time: '16:30',
+                name: '南下嘉義',
+                category: '高速移動',
+                address: '國道一號彰化交流道 (南下往嘉義市區)',
+                desc: '由彰化國道一號南下前往嘉義市區，車程約1.5小時，可在車上午睡小憩。',
+                photoMission: '捕捉在車窗邊看著夕陽金黃田野的溫柔剪影！',
+                recommends: ['中途可稍停西螺服務區品嚐現蒸醬油黑豆干'],
+                trivia: '國道一號南下過濁水溪後即進入嘉南平原，落日時分兩側田野金黃晚霞十分迷人，視野開闊讓心情大好。',
+                tips: '傍晚時段路況順暢，冷氣調至適溫25度，避免著涼。'
+              },
+              {
+                time: '18:00',
+                name: '嘉義兆品酒店',
+                category: '旅宿體驗',
+                address: '嘉義市西區文化路257號',
+                desc: '辦理入住放行李，悠閒泡澡休息。晚餐自理，步行即可品嚐砂鍋魚頭或外帶回房享用。',
+                isHighlight: true,
+                photoMission: '進房後拍下一張坐在舒適大床上放鬆休息的開懷打卡照！',
+                recommends: ['文化路夜市阿娥豆花 (極嫩好入口)', '林聰明砂鍋菜 (外帶回房慢慢吃最愜意)'],
+                trivia: '嘉義文化路夜市是南台灣知名步行夜市，兆品酒店出門直走 5 分鐘即抵達噴水圓環核心，回程隨時可回飯店休息。',
+                tips: '若想悠閒用餐，晚餐強烈建議外帶砂鍋魚頭與雞肉飯回飯店客房享用，更加安靜舒適。'
+              }
+            ]
+          },
+          {
+            id: 'day2',
+            tabLabel: 'Day 2',
+            date: '10/15 (四)',
+            title: '日系早午餐・武德財神與古都夜茶',
+            driveTime: '約 2.5 小時',
+            trafficNote: '嘉義公園出發到北港約35分；北港經國一直奔台南市區約50分；夜晚前往歸仁打茶趣約25分。',
+            notices: [
+              '荏苒早午餐環境幽靜，老宅內木質座椅溫潤好坐',
+              '北港武德宮廟埕極大且全部為平地無階梯，非常適合散步',
+              '富盛號可安排外帶至車上或陰涼處享用，省去站立排隊辛勞',
+              '打茶趣傍晚戶外微涼，需備好保暖防風薄外套'
+            ],
+            showcaseTitle: 'Day 2 府城名物美味名冊',
+            showcaseItems: [
+              { icon: '☕', name: '荏苒溫熱燉菜湯', desc: '時蔬鮮甜、暖胃易吸收' },
+              { icon: '🐯', name: '黑虎將軍氣泡飲', desc: '北港樂咖啡文創好滋味' },
+              { icon: '🍘', name: '富盛號軟Ｑ碗粿', desc: '肉燥香濃、老少咸宜' },
+              { icon: '🫖', name: '炭火圍爐溫烤茶點', desc: '懷舊氛圍滿點' }
+            ],
+            weather: {
+              region: '嘉義 / 台南',
+              condition: '微風朗朗 ⛅',
+              temp: '24° - 31°C',
+              icon: '🌤️',
+              uv: '中量級 (5)',
+              rain: '5%',
+              outfit: '透氣棉麻服裝、薄外套；歸仁夜間茶席在戶外，必備薄風衣。'
+            },
+            spots: [
+              {
+                time: '11:00',
+                name: '嘉義兆品酒店退房',
+                category: '行程銜接',
+                address: '嘉義市西區文化路257號',
+                desc: '悠閒睡到自然醒，11點輕鬆退房，將行李上車。',
+                photoMission: '在飯店大廳氣派的水晶吊燈前拍一張精神飽滿的行前大合照！',
+                recommends: ['出發前在大廳沙發稍坐享用迎賓麥茶'],
+                trivia: '兆品酒店坐落於古諸羅城內，出發往東區嘉義公園只需車程約7分鐘。',
+                tips: '請確認隨身常備藥品與保溫瓶已放上車，無需急促催趕。'
+              },
+              {
+                time: '11:15',
+                name: '早午餐 荏苒',
+                category: '美學咖啡',
+                address: '嘉義市東區公園街97號',
+                desc: '老宅氛圍溫潤清幽，點份溫熱的時蔬燉肉湯與軟歐包當午餐，滋味醇厚。',
+                isHighlight: true,
+                photoMission: '綠意盎然的老宅日式木窗前，拍下優雅喝熱茶的唯美文青特寫！',
+                recommends: ['爐烤季節蔬菜燉肉湯', '手工嫩布丁', '熱鍋煮燕麥奶茶'],
+                trivia: '荏苒隱身於嘉義公園與射日塔旁，由一棟兩層樓的木造舊宅改建，庭院透著日照光影，餐點以自製麵包與暖胃湯品著稱，恬靜無比。',
+                tips: '採現場候位制，抵達時可先在綠蔭庭院長椅等候，推派一人進門登記。'
+              },
+              {
+                time: '13:00',
+                name: '北港武德宮',
+                category: '迎財祈福',
+                address: '雲林縣北港鎮華勝路330號',
+                desc: '雲林武財神祖廟，車程約30分鐘。祈求闔家富貴平安、摸大金元寶聚財氣。',
+                photoMission: '雙手摸著天官武財神金光閃閃的大金元寶，拍下笑開懷的招財發財照！',
+                recommends: ['觸摸天官武財神大金元寶', '文創樂咖啡(Le Café)享用茶點'],
+                trivia: '北港武德宮是全台天官武財神信仰的開基祖廟，金碧輝煌；其「黑虎大將軍」以招財聞名，信眾多會準備生雞蛋與肉乾祭拜。',
+                tips: '廟埕腹地全台最寬廣且全面無階梯，非常方便行走；廟內樂咖啡冷氣充足可吹涼。'
+              },
+              {
+                time: '14:00',
+                name: '南下台南市區',
+                category: '公路巡弋',
+                address: '台南市中西區 (經國道一號南下交流道)',
+                desc: '走國道一號南下前往古都台南，車程約1小時，車上放輕音樂閉目養神。',
+                photoMission: '醒來喝水時，拍下一張精神奕奕、期待府城小吃的美照！',
+                recommends: ['抵達台南前可先在交流道休息站上洗手間'],
+                trivia: '台南中西區是全台古蹟與美食密度最高的一平方公里，街道古韻十足。',
+                tips: '下大灣交流道後車流較多，平穩駕駛避免急煞。'
+              },
+              {
+                time: '14:30',
+                name: '富盛號碗粿',
+                category: '老字號味蕾',
+                address: '台南市中西區民族路三段11號 (國華街口)',
+                desc: '品嚐近80年黑豆醬油炊碗粿與清甜魚羹。口感滑嫩綿密，吃起來毫不費力。',
+                isHighlight: true,
+                photoMission: '拿著傳統古早味竹籤切碗粿的趣味瞬間，捕捉傳統吃法回憶！',
+                recommends: ['黑豆蔭油軟綿純肉燥碗粿', '鮮甜虱目魚羹湯 (不加辣)'],
+                trivia: '富盛號創立於民國36年，最道地的台南吃法是用「專用竹籤」沿著陶碗劃一圈十字，再切塊叉起沾醬食用，口感彈牙帶米香！',
+                tips: '人潮排隊時，可由一人排隊點餐外帶，其他人可在鄰近騎樓陰涼處稍坐。'
+              },
+              {
+                time: '15:15',
+                name: '開基玉皇宮',
+                category: '天公祖廟',
+                address: '台南市北區佑民街111號',
+                desc: '順路參拜全台最古老玉皇上帝祖廟，祈恩全家消災解厄、添福添壽。',
+                photoMission: '在氣勢磅礡的天公廟門前，大家一起雙手拱手向天敬拜留影！',
+                recommends: ['祈求全家轉運平安符', '向玉帝祈求健康安康'],
+                trivia: '開基玉皇宮俗稱「舊天公廟」，創始於明鄭時期，是位階最尊崇的「天界行政總府」，相傳來此求天公赦罪補運極為靈驗。',
+                tips: '佑民街廟埕前設有平整坡道，二樓有電梯可供搭乘參拜凌霄寶殿。'
+              },
+              {
+                time: '16:00',
+                name: '台南市區自由散策',
+                category: '自由散策',
+                address: '台南市中西區中正路63號 (林百貨周邊商圈)',
+                desc: '逛林百貨搭乘懷舊指針電梯，或在正興街古巷內悠閒慢步買伴手禮。',
+                photoMission: '在林百貨內搭乘懷舊復古「指針式電梯」，拍下重溫舊時光的驚奇神情！',
+                recommends: ['林百貨頂樓日式神社與觀景台', '椪餅冰淇淋', '買傳統花生酥'],
+                trivia: '林百貨建於日治昭和年間，是南台灣第一座有指針式升降電梯的洋樓（俗稱「五層樓仔」），頂樓還保留了二戰彈孔遺跡。',
+                tips: '林百貨內部有冷氣與電梯直達各樓層，是避熱休憩的最佳古蹟景點。'
+              },
+              {
+                time: '18:00',
+                name: '入住台南煙波大飯店台南館',
+                category: '尊爵住宿',
+                address: '台南市中西區永福路一段269號',
+                desc: '先辦理入住放行李，房間寬敞舒適，躺下休息30分鐘恢復元氣。',
+                photoMission: '在煙波大廳沙發或高雅落地窗前，拍下一張度假風的高質感打卡照！',
+                recommends: ['大廳迎賓奉茶', '可在房間享用飯店三溫暖放鬆筋骨'],
+                trivia: '煙波台南館座落於昔日「台南地方法院」舊址正對面，周邊環境整潔寧靜，服務備受好評。',
+                tips: '車子直接開入地下停車場，電梯直達客房樓層，行李運送極為輕鬆。'
+              },
+              {
+                time: '19:00',
+                name: '晚餐 (市區自理)',
+                category: '在地晚宴',
+                address: '台南市中西區保安路 (保安路美食商圈)',
+                desc: '散步或外帶保安路小吃，如阿明豬心冬粉、阿文米粿，清甜好消化。',
+                photoMission: '滿桌豐盛台南道地小吃前，舉杯開動的幸福大合照！',
+                recommends: ['阿明豬心冬粉 (湯頭清甜好入口)', '阿文米粿 (軟嫩煎香)', '阿卿熱杏仁茶'],
+                trivia: '保安路是台南庶民夜宵精華地段，距離煙波走路僅 5 分鐘，走累隨時能回房間休息。',
+                tips: '保安路排隊店較多，若不想排隊，推薦直接買回煙波客房慢慢吃，乾淨又舒服。'
+              },
+              {
+                time: '20:30',
+                name: '打茶趣 Partea Fun',
+                category: '夜茶美學',
+                address: '台南市歸仁區智慧綠能大道二段500巷20號',
+                desc: '歸仁區（車程約20分鐘），享受秋夜溫暖炭火煮茶、烤年糕烤橘子的療癒懷舊儀式感。',
+                isHighlight: true,
+                photoMission: '在溫暖的圍爐炭火旁，拍下一張手捧熱茶湯、火光映照笑臉的氛圍感美照！',
+                recommends: ['現烤熱橘子 (生津潤喉)', '高山烏龍原茶席', '炭火現烤麻糬年糕'],
+                trivia: '隱身在歸仁綠能智慧特區的戶外木質庭院，將傳統茶席結合日韓露營風格的炭火圍爐，點亮串燈，微風徐徐，非常愜意放鬆。',
+                tips: '夜晚戶外微風較涼，請務必穿好薄外套；座位多為木椅，可向店家索取靠墊。'
+              }
+            ]
+          },
+          {
+            id: 'day3',
+            tabLabel: 'Day 3',
+            date: '10/16 (五)',
+            title: '古都慢調・奇美埃及大展與順暢北返',
+            driveTime: '約 4 小時',
+            trafficNote: '台南市區至仁德奇美博物館約20分；奇美博物館緊鄰國道一號仁德交流道，返程一路順向北上。',
+            notices: [
+              '早晨睡飽自然醒，不趕早餐，睡到滿意最重要',
+              '煙波固定11點退房，輕鬆將行李搬運上車',
+              '奇美博物館內有無障礙設施與借用服務，看展舒適無負擔',
+              '14:00準時上高速公路，可避開北部週五傍晚大塞車'
+            ],
+            showcaseTitle: 'Day 3 藝文特展與返程名物',
+            showcaseItems: [
+              { icon: '🏛️', name: '大英博物館埃及特展', desc: '世界級古文明盛宴' },
+              { icon: '☕', name: '奇美館內古典咖啡', desc: '文藝輕食午茶休息' },
+              { icon: '🥐', name: '仁德伴手禮真空包', desc: '旅行自用兩相宜' },
+              { icon: '🍢', name: '西螺服務區熱食點心', desc: '國道中繼站伸展筋骨' }
+            ],
+            weather: {
+              region: '台南 / 新北汐止',
+              condition: '秋高氣爽 🌤️',
+              temp: '22° - 30°C',
+              icon: '🏛️',
+              uv: '中量級 (4)',
+              rain: '15%',
+              outfit: '舒適典雅穿搭；館內空調常溫22-24度，務必備妥輕便長袖薄外套。'
+            },
+            spots: [
+              {
+                time: '09:00',
+                name: '台南市區自由時間',
+                category: '慵懶晨光',
+                address: '台南市中西區永福路一段269號 (周邊美術館散策)',
+                desc: '不趕時間，睡晚一點或在飯店對面的南美館二館純白廣場悠閒晨間散步。',
+                photoMission: '在南美館純白幾何建築前，拍一張充滿文青氣息的時尚街拍照！',
+                recommends: ['在附近喝一碗熱呼呼的鮮魚無名鹹粥', '南美館二館林蔭散步道'],
+                trivia: '南美館二館由普立茲克建築獎得主坂茂設計，純白碎形遮陽屋頂宛如藝術品，早晨陽光照射時光影最柔和。',
+                tips: '早晨氣溫舒爽，散步約20-30分鐘即可，回飯店繼續吹冷氣休息。'
+              },
+              {
+                time: '11:00',
+                name: '台南煙波退房',
+                category: '行李啟程',
+                address: '台南市中西區永福路一段269號',
+                desc: '固定11點退房，辦理手續，駕車往仁德出發（車程約15~20分鐘）。',
+                photoMission: '在大門退房出發前，一起比出「三天滿分」手勢拍大合照！',
+                recommends: ['櫃檯辦理停車折抵與飲水補給'],
+                trivia: '從煙波走台86快速道路轉接仁德，一路順暢且無紅綠燈阻滯。',
+                tips: '退房後直接啟程，車程約20分鐘抵達奇美博物館。'
+              },
+              {
+                time: '11:30',
+                name: '奇美博物館 埃及展',
+                category: '藝文大展',
+                address: '台南市仁德區文華路二段66號',
+                desc: '參觀與大英博物館聯手打造的《埃及之王：法老》大展，近距離凝視三千年古文明。',
+                isHighlight: true,
+                photoMission: '在壯麗的阿波羅噴泉或阿波羅白石橋前，留下宛如身在歐洲的文藝合影！',
+                recommends: ['《埃及之王：法老》特展黃金棺', '西洋樂器自動演奏展示', '克里蒙納咖啡午茶'],
+                trivia: '奇美博物館埃及特展展出近280件古埃及法老王黃金飾品、石棺木雕與象形文字石碑，是年度重量級特展；戶外阿波羅噴泉更是由法國凡爾賽宮同等大理石精雕復刻。',
+                tips: '館內服務台提供免費寄物與優質參觀服務；展館極大，建議放慢腳步輕鬆看展。'
+              },
+              {
+                time: '14:00',
+                name: '賦歸汐止',
+                category: '順暢北返',
+                address: '新北市汐止區',
+                desc: '看完直接從仁德交流道上國道北上返程，預計傍晚17:30~18:00順利到家。',
+                photoMission: '在返程休息站時，拍下臉上洋溢著充實幸福笑容的圓滿大合照！',
+                recommends: ['中途停靠清水服務區或西螺服務區，下車伸展筋骨、吃點熱食'],
+                trivia: '下午兩點由仁德交流道北返，恰好避開週五傍晚台中大雅與北部楊梅湖口的大塞車，是最適宜的順暢自駕安排。',
+                tips: '車程約3.5~4小時，中途至少安排兩次休息站活動雙腿、使用洗手間。'
+              }
+            ]
+          }
+        ];
+
+        const currentDayData = computed(() => days[activeDay.value]);
+
+        const completedCount = computed(() => {
+          const spots = days[activeDay.value]?.spots || [];
+          return spots.filter((_, idx) => checkMap[`${activeDay.value}-${idx}`]).length;
+        });
+
+        const progressPercentage = computed(() => {
+          const spots = days[activeDay.value]?.spots || [];
+          if (!spots.length) return 0;
+          return Math.round((completedCount.value / spots.length) * 100);
+        });
+
+        const photoMissionCompletedCount = computed(() => {
+          const spots = days[activeDay.value]?.spots || [];
+          return spots.filter((_, idx) => photoRecords[`${activeDay.value}-${idx}`]).length;
+        });
+
+        const photoProgressPercentage = computed(() => {
+          const spots = days[activeDay.value]?.spots || [];
+          if (!spots.length) return 0;
+          return Math.round((photoMissionCompletedCount.value / spots.length) * 100);
+        });
+
+        // 彙整全部打卡照片清單
+        const allPhotoList = computed(() => {
+          const list = [];
+          Object.keys(photoRecords).forEach(key => {
+            const rec = photoRecords[key];
+            if (rec) {
+              list.push({
+                key: key,
+                ...rec
+              });
+            }
+          });
+          return list;
+        });
+
+        const totalPhotoCount = computed(() => allPhotoList.value.length);
+
+        const filteredAlbumList = computed(() => {
+          if (albumFilter.value === '全部') return allPhotoList.value;
+          if (albumFilter.value === 'Day 1') return allPhotoList.value.filter(i => i.dayIndex === 0);
+          if (albumFilter.value === 'Day 2') return allPhotoList.value.filter(i => i.dayIndex === 1);
+          if (albumFilter.value === 'Day 3') return allPhotoList.value.filter(i => i.dayIndex === 2);
+          return allPhotoList.value;
+        });
+
+        const currentModalSpot = computed(() => {
+          if (activePhotoModalSpot.value === null) return {};
+          return days[activeDay.value]?.spots[activePhotoModalSpot.value] || {};
+        });
+
+        const getTagColor = (cat) => {
+          switch (cat) {
+            case '出發移動':
+            case '高速移動':
+            case '公路巡弋':
+            case '順暢北返':
+              return 'bg-warmGray-100 text-warmGray-700 border border-warmGray-200';
+            case '香火參拜':
+            case '宗教巡禮':
+            case '古蹟名勝':
+            case '古廟巡禮':
+            case '天公祖廟':
+            case '迎財祈福':
+              return 'bg-terracotta-100 text-terracotta-600 border border-terracotta-500/20';
+            case '老街美饌':
+            case '老字號味蕾':
+            case '在地晚宴':
+              return 'bg-butter-100 text-butter-600 border border-butter-200';
+            case '美學咖啡':
+            case '夜茶美學':
+              return 'bg-sage-100 text-sage-700 border border-sage-200';
+            case '藝文大展':
+              return 'bg-caramel-500/10 text-caramel-600 border border-caramel-500/20';
+            case '旅宿體驗':
+            case '尊爵住宿':
+              return 'bg-blue-50 text-blue-700 border border-blue-200/50';
+            default:
+              return 'bg-cream-200 text-warmGray-700';
+          }
+        };
+
+        onMounted(() => {
+          loadPhotosFromServer();
+        });
+
+        return {
+          activeDay,
+          currentView,
+          albumFilter,
+          lightboxItem,
+          days,
+          currentDayData,
+          getTagColor,
+          scrollToTop,
+          copyAddress,
+          toastMessage,
+          checkMap,
+          photoRecords,
+          allPhotoList,
+          filteredAlbumList,
+          isSpotChecked,
+          isPhotoDone,
+          getPhotoRecord,
+          toggleCheck,
+          openPhotoModal,
+          closePhotoModal,
+          activePhotoModalSpot,
+          currentModalSpot,
+          tempPhotoPreview,
+          tempPhotoNote,
+          cameraInputRef,
+          galleryInputRef,
+          showSourceSheet,
+          openSourcePicker,
+          triggerCamera,
+          triggerGallery,
+          handleFileChange,
+          savePhotoMission,
+          deletePhoto,
+          downloadPhoto,
+          openLightbox,
+          quickTags,
+          completedCount,
+          progressPercentage,
+          photoMissionCompletedCount,
+          photoProgressPercentage,
+          totalPhotoCount,
+          currentMoodIcon,
+          celebrateMood,
+          changeDay,
+          isElderMode,
+          toggleElderMode,
+          isLoadingPhotos,
+          isUploadingPhoto
+        };
+      }
+    }).mount('#mount-root');
+  </script>
+</body>
+</html>
