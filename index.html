@@ -6,10 +6,7 @@
   <title>Autumn Journey ・ 10/14-10/16 慢活巡禮</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Noto Serif TC & Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- 字體採用系統內建的微軟正黑體，不需額外載入 Google Fonts -->
   <!-- Vue 3 CDN -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 
@@ -56,8 +53,8 @@
             }
           },
           fontFamily: {
-            serif: ['"Noto Serif TC"', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Microsoft JhengHei"', '"PingFang TC"', '"Heiti TC"', 'sans-serif'],
+            sans: ['"Microsoft JhengHei"', '"PingFang TC"', '"Heiti TC"', 'sans-serif'],
           },
           boxShadow: {
             soft: '0 10px 30px -5px rgba(90, 75, 60, 0.06), 0 4px 12px -2px rgba(90, 75, 60, 0.03)',
@@ -73,7 +70,8 @@
     body {
       background-color: #F6F3EE;
       color: #3A3631;
-      font-family: 'Plus Jakarta Sans', "Noto Serif TC", sans-serif;
+      font-family: 'Microsoft JhengHei', 'PingFang TC', 'Heiti TC', sans-serif;
+      font-weight: 500;
       -webkit-tap-highlight-color: transparent;
     }
     html {
@@ -231,7 +229,7 @@
           <h1 class="text-2xl font-serif font-bold tracking-tight text-warmGray-850 leading-snug">
             {{ currentView === 'itinerary' ? '秋日南行・文化美食誌' : '📸 旅途回憶打卡集' }}
           </h1>
-          <p class="text-xs text-warmGray-500 mt-1 font-light tracking-wide flex items-center gap-1.5">
+          <p class="text-xs text-warmGray-500 mt-1 tracking-wide flex items-center gap-1.5">
             <span>慢活步調</span>
             <span>•</span>
             <span>打卡集章</span>
@@ -313,7 +311,7 @@
 
           <!-- 韓系卡片：今日天氣與穿搭推薦 -->
           <div class="bg-gradient-to-br from-white via-white to-cream-100/60 rounded-3xl p-4 border border-cream-200/90 shadow-soft relative overflow-hidden">
-            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-butter-100 rounded-full blur-xl pointer-events-none"></div>
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-butter-100/40 rounded-full blur-xl pointer-events-none"></div>
 
             <div class="flex items-start justify-between relative z-10">
               <div class="flex items-center gap-3">
@@ -326,6 +324,11 @@
                     <span class="text-[10px] px-2 py-0.5 rounded-full bg-cream-200/70 text-warmGray-600 font-medium">
                       {{ currentDayData.weather.condition }}
                     </span>
+                    <span
+                      v-if="isWeatherLive"
+                      class="text-[9px] px-1.5 py-0.5 rounded-full bg-sage-100 text-sage-700 font-bold"
+                      title="資料來源：Open-Meteo 即時預報"
+                    >即時</span>
                   </div>
                   <div class="text-xl font-bold font-serif text-warmGray-800 mt-0.5 tracking-tight">
                     {{ currentDayData.weather.temp }}
@@ -345,10 +348,13 @@
             </div>
 
             <!-- OOTD 穿搭筆記 -->
-            <div class="mt-3 pt-3 border-t border-cream-200/70 flex items-center gap-2 text-[11px] text-warmGray-600">
-              <span class="text-terracotta-500 font-bold">🍂 穿搭與貼心叮嚀</span>
-              <span class="font-light text-warmGray-600 leading-tight">{{ currentDayData.weather.outfit }}</span>
+            <div class="mt-3 pt-3 border-t border-cream-200/70 flex items-center gap-2 text-[11px] text-warmGray-700 relative z-10">
+              <span class="text-terracotta-600 font-bold">🍂 穿搭與貼心叮嚀</span>
+              <span class="text-warmGray-700 leading-tight">{{ currentDayData.weather.outfit }}</span>
             </div>
+            <p v-if="weatherNote && !isWeatherLive" class="mt-1.5 text-[10px] text-warmGray-400 relative z-10">
+              ⓘ {{ weatherNote }}
+            </p>
           </div>
 
           <!-- 韓系側邊欄資訊卡 (今日小提醒 & 交通指南模組) -->
@@ -359,7 +365,7 @@
                 <span>💡</span>
                 <span>隨行遊玩小提醒</span>
               </div>
-              <ul class="text-[11px] text-warmGray-600 space-y-1 font-light leading-snug">
+              <ul class="text-[11px] text-warmGray-600 space-y-1 leading-snug">
                 <li v-for="(notice, nIdx) in currentDayData.notices" :key="nIdx" class="flex items-start gap-1">
                   <span class="text-butter-500 text-[10px] mt-0.5">✔</span>
                   <span>{{ notice }}</span>
@@ -373,7 +379,7 @@
                 <span>🚗</span>
                 <span>行車與歇腳備忘</span>
               </div>
-              <p class="text-[11px] text-warmGray-600 font-light leading-snug">
+              <p class="text-[11px] text-warmGray-600 leading-snug">
                 {{ currentDayData.trafficNote }}
               </p>
               <div class="mt-2 pt-2 border-t border-cream-100 flex items-center justify-between text-[10px] text-warmGray-500">
@@ -481,8 +487,26 @@
                   <span class="ml-auto text-[10px] text-warmGray-400 group-hover/addr:text-warmGray-800 transition-colors flex-shrink-0">複製</span>
                 </div>
 
+                <!-- 景點實景參考圖（有找到合法授權/使用者提供照片的景點） -->
+                <img
+                  v-if="spot.image"
+                  :src="spot.image"
+                  :alt="spot.name"
+                  loading="lazy"
+                  class="mt-3 w-full h-36 object-cover rounded-2xl border border-cream-200 shadow-sm"
+                  :class="spot.imagePosition || 'object-center'"
+                  :style="spot.imageFocus ? { objectPosition: spot.imageFocus } : {}"
+                >
+                <!-- 沒有實景照片、也未指定不放圖示時，顯示分類意象 emoji 當裝飾圖 -->
+                <div
+                  v-else-if="!spot.hideImage"
+                  class="mt-3 w-full h-20 rounded-2xl border border-cream-200 bg-gradient-to-br from-cream-100 to-butter-100/50 flex items-center justify-center text-4xl"
+                >
+                  {{ categoryIcon(spot.category) }}
+                </div>
+
                 <!-- 行程基礎描述 -->
-                <p class="text-xs text-warmGray-600 mt-2 font-light leading-relaxed">
+                <p class="text-xs text-warmGray-600 mt-2 leading-relaxed">
                   {{ spot.desc }}
                 </p>
 
@@ -547,7 +571,7 @@
                     <span>🌿</span>
                     <span>私房小知識：</span>
                   </div>
-                  <p class="font-light leading-relaxed text-warmGray-600">
+                  <p class="leading-relaxed text-warmGray-600">
                     {{ spot.trivia }}
                   </p>
                 </div>
@@ -608,7 +632,7 @@
               <span class="font-serif font-bold text-warmGray-800 text-xs flex items-center gap-1.5">
                 <span>🏷️</span> {{ currentDayData.showcaseTitle }}
               </span>
-              <span class="text-[10px] text-warmGray-500 font-light">好口味・無負擔</span>
+              <span class="text-[10px] text-warmGray-500">好口味・無負擔</span>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
               <div
@@ -1037,6 +1061,85 @@
           }
         };
 
+        // ===== 即時天氣（Open-Meteo，免金鑰、免後端） =====
+        const isWeatherLive = ref(false); // 是否已成功換上即時預報
+        const weatherNote = ref(''); // 顯示在天氣卡片上的小提示文字
+
+        // 每天代表性地點座標與實際日期（用於查詢對應日期的預報）
+        const weatherLookup = [
+          { lat: 23.4801, lon: 120.4491, date: '2026-10-14' }, // Day1 彰化→嘉義，取嘉義代表
+          { lat: 22.9997, lon: 120.2270, date: '2026-10-15' }, // Day2 嘉義→台南，取台南代表
+          { lat: 22.9997, lon: 120.2270, date: '2026-10-16' }  // Day3 台南
+        ];
+
+        const wmoToDisplay = (code) => {
+          const map = {
+            0: ['☀️', '晴朗'], 1: ['🌤️', '晴時多雲'], 2: ['⛅', '多雲時晴'], 3: ['☁️', '多雲'],
+            45: ['🌫️', '有霧'], 48: ['🌫️', '霧淞'],
+            51: ['🌦️', '毛毛雨'], 53: ['🌦️', '毛毛雨'], 55: ['🌦️', '毛毛雨'],
+            61: ['🌧️', '小雨'], 63: ['🌧️', '中雨'], 65: ['🌧️', '大雨'],
+            71: ['🌨️', '小雪'], 73: ['🌨️', '中雪'], 75: ['🌨️', '大雪'],
+            80: ['🌦️', '短暫陣雨'], 81: ['🌧️', '陣雨'], 82: ['⛈️', '強陣雨'],
+            95: ['⛈️', '雷雨'], 96: ['⛈️', '雷雨挾冰雹'], 99: ['⛈️', '強雷雨挾冰雹']
+          };
+          return map[code] || ['🌤️', '天氣多變'];
+        };
+
+        const uvLabel = (uv) => {
+          if (uv >= 8) return `過量級 (${Math.round(uv)})`;
+          if (uv >= 6) return `高量級 (${Math.round(uv)})`;
+          if (uv >= 3) return `中量級 (${Math.round(uv)})`;
+          return `低量級 (${Math.round(uv)})`;
+        };
+
+        const loadLiveWeather = async () => {
+          try {
+            const results = await Promise.all(weatherLookup.map(({ lat, lon, date }) => {
+              const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max&timezone=Asia%2FTaipei&start_date=${date}&end_date=${date}`;
+              return fetch(url).then(r => r.json()).catch(() => null);
+            }));
+
+            let updatedAny = false;
+            results.forEach((data, i) => {
+              const d = data && data.daily;
+              if (d && d.time && d.time.length && d.weathercode && d.weathercode[0] != null) {
+                const [icon, condition] = wmoToDisplay(d.weathercode[0]);
+                const tMax = Math.round(d.temperature_2m_max[0]);
+                const tMin = Math.round(d.temperature_2m_min[0]);
+                const rain = d.precipitation_probability_max ? d.precipitation_probability_max[0] : null;
+                const uv = d.uv_index_max ? d.uv_index_max[0] : null;
+
+                days[i].weather.icon = icon;
+                days[i].weather.condition = `${condition} ${icon}`;
+                days[i].weather.temp = `${tMin}° - ${tMax}°C`;
+                if (rain != null) days[i].weather.rain = `${rain}%`;
+                if (uv != null) days[i].weather.uv = uvLabel(uv);
+                updatedAny = true;
+              }
+            });
+
+            if (updatedAny) {
+              isWeatherLive.value = true;
+              weatherNote.value = '即時預報';
+            } else {
+              // 行程日期超出目前可預報範圍（一般約 16 天內），先顯示原本的季節估計值
+              weatherNote.value = '尚未到可預報範圍，顯示為參考估計，出發前會自動改為即時預報';
+            }
+          } catch (err) {
+            weatherNote.value = '天氣預報暫時連不上，顯示為參考估計';
+          }
+        };
+
+        // 沒有實景照片的景點，依類別給一個裝飾用 emoji 當意象圖
+        const categoryIconMap = {
+          '出發移動': '🚗', '高速移動': '🚗', '公路巡弋': '🚙', '行程銜接': '🔀', '順暢北返': '🏠',
+          '香火參拜': '🙏', '宗教巡禮': '⛩️', '天公祖廟': '🛕', '迎財祈福': '💰',
+          '老街美饌': '🥟', '老字號味蕾': '🍜', '在地晚宴': '🍽️', '夜茶美學': '🍵', '美學咖啡': '☕',
+          '古蹟名勝': '🏯', '古廟巡禮': '🏮', '藝文大展': '🖼️', '自由散策': '🚶',
+          '尊爵住宿': '🏨', '旅宿體驗': '🛏️', '行李啟程': '🧳', '慵懶晨光': '☀️'
+        };
+        const categoryIcon = (cat) => categoryIconMap[cat] || '🗺️';
+
         const quickTags = ['笑顏滿分 🌸', '跟神明合照祈求平安 🙏', '這道小吃超讚 😋', '漫步風景好舒服 🍃'];
 
         const toggleElderMode = () => {
@@ -1240,7 +1343,7 @@
         };
 
         // 三天兩夜完整行程資料
-        const days = [
+        const days = reactive([
           {
             id: 'day1',
             tabLabel: 'Day 1',
@@ -1275,6 +1378,7 @@
                 name: '汐止出發',
                 category: '出發移動',
                 address: '新北市汐止區新昌路1號 (汐止車站前起點)',
+                hideImage: true,
                 desc: '往桃園方向啟程，避開早晨最尖峰車潮。車上備好保溫瓶與輕柔音樂。',
                 photoMission: '車內出發大合照，比出「開心出發」的手勢！',
                 recommends: ['出發前備足溫開水與水果切片'],
@@ -1286,6 +1390,8 @@
                 name: '桃園威天宮',
                 category: '香火參拜',
                 address: '桃園市龜山區大坑路三段150巷1號',
+                image: 'images/weitian-gong.webp',
+                imagePosition: 'object-center',
                 desc: '參拜全台最高室內關聖帝君，虔心敬祈全家長壽安康、平安轉運。',
                 photoMission: '與巍峨高聳的室內關公像前，拍下手握轉運龍銀的吉祥合影！',
                 recommends: ['轉運龍銀求健康平安', '金孔雀前合影留念'],
@@ -1297,6 +1403,8 @@
                 name: '苗栗白沙屯拱天宮',
                 category: '宗教巡禮',
                 address: '苗栗縣通霄鎮白東里8號',
+                image: 'images/baishatun-gongtiangong.jpg',
+                imagePosition: 'object-top',
                 desc: '參拜拱天宮媽祖廟，感受海岸古樸漁村的虔誠信仰力量與純樸人情味。',
                 photoMission: '在「拱天宮」牌樓下，大家牽著手拍下溫馨出遊合照！',
                 recommends: ['廟前阿婆古早味粉圓', '現炊白沙屯肉圓', '拱天宮文創安平符卡'],
@@ -1308,6 +1416,7 @@
                 name: '彰化鹿港老街',
                 category: '老街美饌',
                 address: '彰化縣鹿港鎮瑤林街與埔頭街一帶',
+                image: 'https://commons.wikimedia.org/wiki/Special:FilePath/鹿港老街.jpg?width=800',
                 desc: '享用午餐＋老街經典在地小吃（蝦猴酥、蚵嗲、麵線糊、麵茶冰）。',
                 isHighlight: true,
                 photoMission: '在紅磚古樸小巷前，捕捉大口品嚐美味肉包或麵線糊的生動笑容！',
@@ -1320,6 +1429,7 @@
                 name: '鹿港天后宮',
                 category: '古蹟名勝',
                 address: '彰化縣鹿港鎮中山路430號',
+                image: 'https://commons.wikimedia.org/wiki/Special:FilePath/鹿港天后宮.JPG?width=800',
                 desc: '步行可達，參拜湄洲媽祖開基聖尊，欣賞精雕細琢的藻井國寶木雕工藝。',
                 photoMission: '在香火裊裊的大殿前，拍下雙手合十、虔誠祈願的神韻留影！',
                 recommends: ['殿頂八卦藻井木雕', '千里眼順風耳精雕'],
@@ -1331,6 +1441,9 @@
                 name: '鹿港城隍廟',
                 category: '古廟巡禮',
                 address: '彰化縣鹿港鎮中山路366號',
+                image: 'images/lukang-chenghuang-miao.jpg',
+                imagePosition: 'object-center',
+                imageFocus: 'center 62%',
                 desc: '步行可達，與天后宮同區，祈求公正明理、闔家驅邪避禍、福壽綿長。',
                 photoMission: '抬頭指著殿頂傳奇「大算盤」，一起合照比個讚！',
                 recommends: ['參拜大算盤祈求行事無差錯', '門前古早現烤牛舌餅'],
@@ -1342,6 +1455,8 @@
                 name: '南下嘉義',
                 category: '高速移動',
                 address: '國道一號彰化交流道 (南下往嘉義市區)',
+                image: 'images/sunset-to-chiayi.jpg',
+                imagePosition: 'object-center',
                 desc: '由彰化國道一號南下前往嘉義市區，車程約1.5小時，可在車上午睡小憩。',
                 photoMission: '捕捉在車窗邊看著夕陽金黃田野的溫柔剪影！',
                 recommends: ['中途可稍停西螺服務區品嚐現蒸醬油黑豆干'],
@@ -1353,6 +1468,9 @@
                 name: '嘉義兆品酒店',
                 category: '旅宿體驗',
                 address: '嘉義市西區文化路257號',
+                image: 'images/chiayi-hotel.jpg',
+                imagePosition: 'object-center',
+                imageFocus: 'center 78%',
                 desc: '辦理入住放行李，悠閒泡澡休息。晚餐自理，步行即可品嚐砂鍋魚頭或外帶回房享用。',
                 isHighlight: true,
                 photoMission: '進房後拍下一張坐在舒適大床上放鬆休息的開懷打卡照！',
@@ -1397,6 +1515,7 @@
                 name: '嘉義兆品酒店退房',
                 category: '行程銜接',
                 address: '嘉義市西區文化路257號',
+                hideImage: true,
                 desc: '悠閒睡到自然醒，11點輕鬆退房，將行李上車。',
                 photoMission: '在飯店大廳氣派的水晶吊燈前拍一張精神飽滿的行前大合照！',
                 recommends: ['出發前在大廳沙發稍坐享用迎賓麥茶'],
@@ -1408,6 +1527,9 @@
                 name: '早午餐 荏苒',
                 category: '美學咖啡',
                 address: '嘉義市東區公園街97號',
+                image: 'images/brunch-renran.jpg',
+                imagePosition: 'object-bottom',
+                imageFocus: 'center 85%',
                 desc: '老宅氛圍溫潤清幽，點份溫熱的時蔬燉肉湯與軟歐包當午餐，滋味醇厚。',
                 isHighlight: true,
                 photoMission: '綠意盎然的老宅日式木窗前，拍下優雅喝熱茶的唯美文青特寫！',
@@ -1420,6 +1542,9 @@
                 name: '北港武德宮',
                 category: '迎財祈福',
                 address: '雲林縣北港鎮華勝路330號',
+                image: 'images/beigang-wude-gong.jpg',
+                imagePosition: 'object-center',
+                imageFocus: 'center 45%',
                 desc: '雲林武財神祖廟，車程約30分鐘。祈求闔家富貴平安、摸大金元寶聚財氣。',
                 photoMission: '雙手摸著天官武財神金光閃閃的大金元寶，拍下笑開懷的招財發財照！',
                 recommends: ['觸摸天官武財神大金元寶', '文創樂咖啡(Le Café)享用茶點'],
@@ -1431,6 +1556,7 @@
                 name: '南下台南市區',
                 category: '公路巡弋',
                 address: '台南市中西區 (經國道一號南下交流道)',
+                hideImage: true,
                 desc: '走國道一號南下前往古都台南，車程約1小時，車上放輕音樂閉目養神。',
                 photoMission: '醒來喝水時，拍下一張精神奕奕、期待府城小吃的美照！',
                 recommends: ['抵達台南前可先在交流道休息站上洗手間'],
@@ -1442,6 +1568,9 @@
                 name: '富盛號碗粿',
                 category: '老字號味蕾',
                 address: '台南市中西區民族路三段11號 (國華街口)',
+                image: 'images/fusheng-rice-cake.jpg',
+                imagePosition: 'object-top',
+                imageFocus: 'center 15%',
                 desc: '品嚐近80年黑豆醬油炊碗粿與清甜魚羹。口感滑嫩綿密，吃起來毫不費力。',
                 isHighlight: true,
                 photoMission: '拿著傳統古早味竹籤切碗粿的趣味瞬間，捕捉傳統吃法回憶！',
@@ -1454,6 +1583,9 @@
                 name: '開基玉皇宮',
                 category: '天公祖廟',
                 address: '台南市北區佑民街111號',
+                image: 'images/kaiji-yuhuang-gong.jpg',
+                imagePosition: 'object-center',
+                imageFocus: 'center 55%',
                 desc: '順路參拜全台最古老玉皇上帝祖廟，祈恩全家消災解厄、添福添壽。',
                 photoMission: '在氣勢磅礡的天公廟門前，大家一起雙手拱手向天敬拜留影！',
                 recommends: ['祈求全家轉運平安符', '向玉帝祈求健康安康'],
@@ -1465,6 +1597,8 @@
                 name: '台南市區自由散策',
                 category: '自由散策',
                 address: '台南市中西區中正路63號 (林百貨周邊商圈)',
+                image: 'images/tainan-stroll.jpg',
+                imagePosition: 'object-center',
                 desc: '逛林百貨搭乘懷舊指針電梯，或在正興街古巷內悠閒慢步買伴手禮。',
                 photoMission: '在林百貨內搭乘懷舊復古「指針式電梯」，拍下重溫舊時光的驚奇神情！',
                 recommends: ['林百貨頂樓日式神社與觀景台', '椪餅冰淇淋', '買傳統花生酥'],
@@ -1476,6 +1610,8 @@
                 name: '入住台南煙波大飯店台南館',
                 category: '尊爵住宿',
                 address: '台南市中西區永福路一段269號',
+                image: 'images/lakeshore-hotel-tainan.jpg',
+                imagePosition: 'object-bottom',
                 desc: '先辦理入住放行李，房間寬敞舒適，躺下休息30分鐘恢復元氣。',
                 photoMission: '在煙波大廳沙發或高雅落地窗前，拍下一張度假風的高質感打卡照！',
                 recommends: ['大廳迎賓奉茶', '可在房間享用飯店三溫暖放鬆筋骨'],
@@ -1487,6 +1623,8 @@
                 name: '晚餐 (市區自理)',
                 category: '在地晚宴',
                 address: '台南市中西區保安路 (保安路美食商圈)',
+                image: 'images/tainan-dinner.webp',
+                imagePosition: 'object-center',
                 desc: '散步或外帶保安路小吃，如阿明豬心冬粉、阿文米粿，清甜好消化。',
                 photoMission: '滿桌豐盛台南道地小吃前，舉杯開動的幸福大合照！',
                 recommends: ['阿明豬心冬粉 (湯頭清甜好入口)', '阿文米粿 (軟嫩煎香)', '阿卿熱杏仁茶'],
@@ -1498,6 +1636,8 @@
                 name: '打茶趣 Partea Fun',
                 category: '夜茶美學',
                 address: '台南市歸仁區智慧綠能大道二段500巷20號',
+                image: 'images/partea-fun.jpg',
+                imagePosition: 'object-center',
                 desc: '歸仁區（車程約20分鐘），享受秋夜溫暖炭火煮茶、烤年糕烤橘子的療癒懷舊儀式感。',
                 isHighlight: true,
                 photoMission: '在溫暖的圍爐炭火旁，拍下一張手捧熱茶湯、火光映照笑臉的氛圍感美照！',
@@ -1542,6 +1682,8 @@
                 name: '台南市區自由時間',
                 category: '慵懶晨光',
                 address: '台南市中西區永福路一段269號 (周邊美術館散策)',
+                image: 'images/tainan-freetime.jpg',
+                imagePosition: 'object-center',
                 desc: '不趕時間，睡晚一點或在飯店對面的南美館二館純白廣場悠閒晨間散步。',
                 photoMission: '在南美館純白幾何建築前，拍一張充滿文青氣息的時尚街拍照！',
                 recommends: ['在附近喝一碗熱呼呼的鮮魚無名鹹粥', '南美館二館林蔭散步道'],
@@ -1553,6 +1695,7 @@
                 name: '台南煙波退房',
                 category: '行李啟程',
                 address: '台南市中西區永福路一段269號',
+                hideImage: true,
                 desc: '固定11點退房，辦理手續，駕車往仁德出發（車程約15~20分鐘）。',
                 photoMission: '在大門退房出發前，一起比出「三天滿分」手勢拍大合照！',
                 recommends: ['櫃檯辦理停車折抵與飲水補給'],
@@ -1564,6 +1707,7 @@
                 name: '奇美博物館 埃及展',
                 category: '藝文大展',
                 address: '台南市仁德區文華路二段66號',
+                image: 'https://commons.wikimedia.org/wiki/Special:FilePath/奇美博物館 Qimei Museum - panoramio.jpg?width=800',
                 desc: '參觀與大英博物館聯手打造的《埃及之王：法老》大展，近距離凝視三千年古文明。',
                 isHighlight: true,
                 photoMission: '在壯麗的阿波羅噴泉或阿波羅白石橋前，留下宛如身在歐洲的文藝合影！',
@@ -1576,6 +1720,7 @@
                 name: '賦歸汐止',
                 category: '順暢北返',
                 address: '新北市汐止區',
+                hideImage: true,
                 desc: '看完直接從仁德交流道上國道北上返程，預計傍晚17:30~18:00順利到家。',
                 photoMission: '在返程休息站時，拍下臉上洋溢著充實幸福笑容的圓滿大合照！',
                 recommends: ['中途停靠清水服務區或西螺服務區，下車伸展筋骨、吃點熱食'],
@@ -1584,7 +1729,7 @@
               }
             ]
           }
-        ];
+        ]);
 
         const currentDayData = computed(() => days[activeDay.value]);
 
@@ -1673,6 +1818,7 @@
 
         onMounted(() => {
           loadPhotosFromServer();
+          loadLiveWeather();
         });
 
         return {
@@ -1723,7 +1869,10 @@
           isElderMode,
           toggleElderMode,
           isLoadingPhotos,
-          isUploadingPhoto
+          isUploadingPhoto,
+          categoryIcon,
+          isWeatherLive,
+          weatherNote
         };
       }
     }).mount('#mount-root');
